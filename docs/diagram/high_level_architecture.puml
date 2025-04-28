@@ -1,0 +1,28 @@
+@startuml
+
+agent "ATP Public\n Gateway" as pgw #Grey
+agent "ATP Internal\n Gateway" as igw #Grey
+queue "ActiveMq" as activemqrep #LightBlue
+
+agent "ITF Configurator\n (frontend)" as itfconfig #Yellow
+collections "ITF Executor (backend) \n (1..n pods)" as itfexecutor #Yellow
+collections "ITF Reporting (backend) \n (1..n pods)" as itfreporting #Yellow
+
+actor "User" as user
+
+database "ITF Reporting\nDatabase" as dbitfreporting
+
+itfexecutor -Down-> activemqrep: Message \nto reporting
+
+activemqrep -Down-> itfreporting: Message \nto reporting
+itfreporting <-Down-> dbitfreporting: Read / Write\n reporting data
+
+user -Down-> itfconfig: Request from web-browser /\nResponse
+itfconfig -Down-> pgw: Request to ITF subservice /\nResponse
+
+itfexecutor -Down-> igw: Request via Feign-client / \nResponse
+igw -Down-> itfreporting: Request /\nResponse
+
+pgw -Down-> itfreporting: Request /\nResponse
+@enduml
+

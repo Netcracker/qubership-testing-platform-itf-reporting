@@ -1,0 +1,136 @@
+<configuration scan="true" debug="false">
+    <!--You can use attribute debug="true" to output the config location to console, or packagingData="true" to add packages info to stacktrace output-->
+    <contextListener class="ch.qos.logback.classic.jul.LevelChangePropagator"/>
+    <springProperty name="GRAYLOG_ON" source="log.graylog.on"/>
+    <springProperty name="GRAYLOG_HOST" source="log.graylog.host"/>
+    <springProperty name="GRAYLOG_PORT" source="log.graylog.port"/>
+    <springProperty name="LOG_LEVEL_ROOT" source="logging.level.root"/>
+    <if condition='property("GRAYLOG_ON").equals("true")'>
+        <then>
+            <appender name="GELF"
+                      class="org.qubership.atp.integration.configuration.logging.gelf.logback.FailSafeGelfLogbackAppender">
+                <host>${GRAYLOG_HOST}</host>
+                <port>${GRAYLOG_PORT}</port>
+                <version>1.1</version>
+                <facility>atp-itf-reporting</facility>
+                <extractStackTrace>true</extractStackTrace>
+                <filterStackTrace>true</filterStackTrace>
+                <mdcProfiling>true</mdcProfiling>
+                <timestampPattern>yyyy-MM-dd HH:mm:ss,SSSS</timestampPattern>
+                <maximumMessageSize>8192</maximumMessageSize>
+
+                <!-- This are static fields -->
+                <additionalFields>environment=TA,application=atp-itf-reporting</additionalFields>
+                <!-- Optional: Specify field types -->
+                <additionalFieldTypes>environment=String,application=String</additionalFieldTypes>
+
+                <mdcFields>mdc.userId,mdc.projectId,mdc.executionRequestId,mdc.testRunId,mdc.callChainId,mdc.itfSessionId,mdc.itfContextId</mdcFields>
+                <dynamicMdcFieldTypes>userId=String,projectId=String,executionRequestId=String,testRunId=String,callChainId=String,itfSessionId=String,itfContextId=String</dynamicMdcFieldTypes>
+                <dynamicMdcFields>mdc.*,(mdc|MDC)fields</dynamicMdcFields>
+                <includeFullMdc>true</includeFullMdc>
+                <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+                    <level>${LOG_LEVEL_ROOT:-INFO}</level>
+                </filter>
+            </appender>
+            <appender name="ASYNC_GELF" class="ch.qos.logback.classic.AsyncAppender">
+                <appender-ref ref="GELF"/>
+            </appender>
+
+            <logger name="org.qubership.automation" level="${LOG_LEVEL_ROOT:-INFO}" additivity="false">
+                <appender-ref ref="ASYNC_GELF"/>
+            </logger>
+            <logger name="org.apache.activemq" level="WARN" additivity="false">
+                <appender-ref ref="ASYNC_GELF"/>
+            </logger>
+            <logger name="org.qubership.atp" level="INFO" additivity="false">
+                <appender-ref ref="ASYNC_GELF"/>
+            </logger>
+            <logger name="org.springframework" level="ERROR" additivity="false">
+                <appender-ref ref="ASYNC_GELF"/>
+            </logger>
+            <logger name="org.reflections" level="OFF" additivity="false">
+                <appender-ref ref="ASYNC_GELF"/>
+            </logger>
+            <logger name="org.codehaus.janino" level="OFF" additivity="false">
+                <appender-ref ref="ASYNC_GELF"/>
+            </logger>
+            <logger name="org.hibernate.engine.internal.StatisticalLoggingSessionEventListener" level="OFF" additivity="false">
+                <appender-ref ref="ASYNC_GELF"/>
+            </logger>
+            <root level="INFO">
+                <appender-ref ref="ASYNC_GELF"/>
+            </root>
+        </then>
+        <else>
+            <!-- Appenders -->
+            <appender name="ConsoleAppender" class="ch.qos.logback.core.ConsoleAppender">
+                <!-- encoders are assigned the type
+                 ch.qos.logback.classic.encoder.PatternLayoutEncoder by default -->
+                <encoder>
+                    <!--See also https://logback.qos.ch/manual/layouts.html-->
+                    <pattern>%d{dd.MM.yyyy HH:mm:ss.SSS}[%t][%p][%C{0}] - %xEx{0}%throwable{full}%m%n</pattern>
+                    <charset>UTF-8</charset>
+                </encoder>
+            </appender>
+            <appender name="FileAppender" class="ch.qos.logback.core.rolling.RollingFileAppender">
+                <!--See also http://logback.qos.ch/manual/appenders.html#RollingFileAppender-->
+                <file>./itf_logs/ITF_reporting.log</file>
+                <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+                    <!--See also https://logback.qos.ch/manual/layouts.html-->
+                    <pattern>%d{dd.MM.yyyy HH:mm:ss.SSS} [%t][%p][%C{0}] - %throwable{full}%m%n
+                    </pattern>
+                    <charset>UTF-8</charset>
+                </encoder>
+                <rollingPolicy class="ch.qos.logback.core.rolling.FixedWindowRollingPolicy">
+                    <maxIndex>10</maxIndex>
+                    <FileNamePattern>./itf_logs/ITF_reporting.log.%i</FileNamePattern>
+                </rollingPolicy>
+                <triggeringPolicy class="ch.qos.logback.core.rolling.SizeBasedTriggeringPolicy">
+                    <maxFileSize>10Mb</maxFileSize>
+                </triggeringPolicy>
+            </appender>
+            <appender name="TimerAppender" class="ch.qos.logback.core.rolling.RollingFileAppender">
+                <!--See also http://logback.qos.ch/manual/appenders.html#RollingFileAppender-->
+                <file>./itf_logs/reporttime.log</file>
+                <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+                    <!--See also https://logback.qos.ch/manual/layouts.html-->
+                    <pattern>%d{dd.MM.yyyy HH:mm:ss.SSS} [%t][%p][%C{0}] - %throwable{full}%m%n
+                    </pattern>
+                    <charset>UTF-8</charset>
+                </encoder>
+                <rollingPolicy class="ch.qos.logback.core.rolling.FixedWindowRollingPolicy">
+                    <maxIndex>20</maxIndex>
+                    <FileNamePattern>./itf_logs/reporttime.log.%i</FileNamePattern>
+                </rollingPolicy>
+                <triggeringPolicy class="ch.qos.logback.core.rolling.SizeBasedTriggeringPolicy">
+                    <maxFileSize>10Mb</maxFileSize>
+                </triggeringPolicy>
+            </appender>
+
+            <!-- Loggers -->
+            <logger name="org.qubership.automation" level="${LOG_LEVEL_ROOT:-INFO}" additivity="false">
+                <appender-ref ref="ConsoleAppender"/>
+                <appender-ref ref="FileAppender"/>
+            </logger>
+            <logger name="org.qubership.automation.itf.core.timer" level="INFO" additivity="false">
+                <appender-ref ref="ConsoleAppender"/>
+                <appender-ref ref="TimerAppender"/>
+            </logger>
+            <logger name="org.apache.activemq" level="WARN" additivity="false">
+                <appender-ref ref="ConsoleAppender"/>
+                <appender-ref ref="TimerAppender"/>
+            </logger>
+            <logger name="org.springframework" level="ERROR" additivity="false">
+                <appender-ref ref="ConsoleAppender"/>
+            </logger>
+            <logger name="org.hibernate.engine.internal.StatisticalLoggingSessionEventListener" level="OFF" additivity="false">
+                <appender-ref ref="ConsoleAppender"/>
+                <appender-ref ref="FileAppender"/>
+            </logger>
+            <root level="${LOG_LEVEL_ROOT:-INFO}">
+                <appender-ref ref="ConsoleAppender"/>
+                <appender-ref ref="FileAppender"/>
+            </root>
+        </else>
+    </if>
+</configuration>

@@ -1,0 +1,10 @@
+databaseChangeLog:
+  - changeSet:
+      id: drop_foreign_key_constraints
+      author: Aleksandr Kapustin
+      comment: To avoid integrity checks while partitions detaching.
+      changes:
+        - sqlFile:
+            path: drop_foreign_keys.sql
+            relativeToChangelogFile: true
+            splitStatements: false

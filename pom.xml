@@ -1,0 +1,92 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>org.qubership.atp-itf-reporting</groupId>
+    <artifactId>atp-itf-reporting</artifactId>
+    <version>${atp.service.version}</version>
+    <packaging>pom</packaging>
+    <name>atp-itf-reporting</name>
+
+    <modules>
+
+        <!--modules for building process-->
+        <module>parent/parent-dependencies</module>
+        <module>parent/parent-java</module>
+
+        <!--Module with *.yaml specifications for pact testing-->
+        <module>atp-itf-reporting-rest-openapi-specifications</module>
+
+        <!--The module is aggregator-->
+        <module>report</module>
+
+        <!--pom for compile ready project and some local resources-->
+        <module>common</module>
+
+    </modules>
+
+    <properties>
+        <atp.service.version>0.0.1.LOCAL</atp.service.version>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+        <taRollout.skipNotify>true</taRollout.skipNotify>
+    </properties>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>2.15</version>
+                <configuration>
+                    <argLine>-Dfile.encoding=UTF-8</argLine>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>com.google.code.maven-replacer-plugin</groupId>
+                <artifactId>replacer</artifactId>
+                <version>1.5.3</version>
+                <executions>
+                    <execution>
+                        <phase>deploy</phase>
+                        <goals>
+                            <goal>replace</goal>
+                        </goals>
+                        <configuration>
+                            <basedir>./</basedir>
+                            <includes>
+                                <include>pom.xml</include>
+                                <include>parent/parent-dependencies/pom.xml</include>
+                                <include>parent/parent-java/pom.xml</include>
+                                <include>common/pom.xml</include>
+                                <include>atp-itf-reporting-rest-openapi-specifications/pom.xml</include>
+                                <include>report/pom.xml</include>
+                            </includes>
+                            <replacements>
+                                <replacement>
+                                    <token>\$\{atp.service.version\}</token>
+                                    <value>${atp.service.version}</value>
+                                </replacement>
+                            </replacements>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+    <pluginRepositories>
+        <pluginRepository>
+            <id>central</id>
+            <name>Maven Central</name>
+            <url>https://repo1.maven.org/maven2/</url>
+        </pluginRepository>
+    </pluginRepositories>
+    <distributionManagement>
+        <repository>
+            <id>central</id>
+            <name>Maven Central</name>
+            <url>https://repo1.maven.org/maven2/</url>
+        </repository>
+    </distributionManagement>
+
+</project>

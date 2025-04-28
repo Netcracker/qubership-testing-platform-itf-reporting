@@ -1,0 +1,16 @@
+working.directory=Working directory for Excel datasets and configurational xml-files (Can be relative path from the ITF root directory)
+activemqport=port for ActiveMQ connection (Default: 10002)
+binding.directory=Directory which contains binding on standard MB entities (Callchain, System, etc.) (Relative path from the ITF root directory)
+tc.timeout.fail=Max time to wait in case tcContext execution inactivity. After specified time the context will be failed by timeout. Default: 20 (minutes)
+tc.timeout.fail.timeunit=Timeout units (milliseconds, seconds, minutes, hours, days). Default: minutes
+monitoring.pagination.size=The number of rows to display on the one page of monitoring tab (10, 20, 50, 100). Default: 20
+report.execution.schema=Name of database schema for inner ITF reporting
+log.level=Specifies logging level for ITF (Some classes use the logger with dynamically changeable level). Value: one of TRACE, DEBUG, INFO, WARN, ERROR
+runningUrl=Server URL to identify the instance of ITF
+context.format.prettyPrint=Default setting of 'Pretty print' checkbox in the context popup -> steps tree --> Incoming/Outgoing message accordion. Values: true/false. Default: false
+context.format.messageType=Default setting of 'Message Type' select-list in the context popup -> steps tree --> Incoming/Outgoing message accordion. Values: XML, JSON. Default: XML
+context.format.wordWrap=Default setting of 'Word wrap' checkbox in the context popup -> steps tree --> Incoming/Outgoing message accordion. Values: true/false. Default: false
+receiver.listenerContainerFactory.concurrency=Report receiver performance: Concurrency level. Default: 10-250
+receiver.prefetchPolicy.queue=Report receiver performance: Prefetch queue policy. Default: 1
+receiver.prefetchPolicy.topic=Report receiver performance: Prefetch topic policy. Default: 1
+receiver.redeliveryPolicy.maximumRedeliveries=Report receiver performance: Maximum redeliveries. Default: 1

@@ -1,0 +1,39 @@
+databaseChangeLog:
+  - changeSet:
+      id: preserve_tccontext_status
+      author: itf
+      validCheckSum: 8:bb070ee2e2656c08d3b3a54661ffd3a1
+      comment: Create trigger and procedure to preserve tccontext status against incorrect changes.
+      changes:
+        - sqlFile:
+            path: preserve_tccontext_status.sql
+            relativeToChangelogFile: true
+            splitStatements: false
+  - changeSet:
+      id: add_duration_computing
+      author: itf
+      validCheckSum: 8:bb070ee2e2656c08d3b3a54661ffd3a2
+      comment: Change trigger procedure to compute duration of tccontext.
+      changes:
+        - sqlFile:
+            path: add_duration_computing.sql
+            relativeToChangelogFile: true
+            splitStatements: false
+  - changeSet:
+      id: fix_tccontext_table
+      author: itf
+      comment: Fix mb_tccontext table structure (add missed columns).
+      changes:
+        - sqlFile:
+            path: fix_tccontext_table.sql
+            relativeToChangelogFile: true
+            splitStatements: false
+  - changeSet:
+      id: fix_insert_tccontext_after_function
+      author: itf
+      comment: Fix insert_tccontext_after function (add part_num, initiator_type and initiator_type processing).
+      changes:
+        - sqlFile:
+            path: fix_insert_tccontext_after_function.sql
+            relativeToChangelogFile: true
+            splitStatements: false

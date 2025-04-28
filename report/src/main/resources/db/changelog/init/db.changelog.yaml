@@ -1,0 +1,49 @@
+databaseChangeLog:
+  - changeSet:
+      id: initial_db_structure
+      author: itf
+      validCheckSum: 8:0f229473f4fd92d67ec5f038fc41b59f
+      preConditions:
+        - onError: WARN
+        - onErrorMessage: Init script which creates actual db structure (without partitions) was skipped because postgres version is 14+ or db structure is already exist.
+        - onFail: MARK_RAN
+        - sqlCheck:
+            expectedResult: t
+            sql: select (SELECT current_setting('server_version'))::decimal < 14 as result
+        - not:
+            - tableExists:
+               tableName: mb_config
+      comment: Init script which creates actual db structure (without partitions) will be executed if postgres version is less than 14 and  db structure is not exist (mb_config table is not exist).
+      changes:
+        - sqlFile:
+            path: sql/reports_schemaonly_plain.sql
+            relativeToChangelogFile: true
+            splitStatements: false
+        - sqlFile:
+            path: sql/configure_cleanup.sql
+            relativeToChangelogFile: true
+            splitStatements: false
+  - changeSet:
+      id: initial_db_structure_with_partitioning
+      author: itf
+      validCheckSum: 8:75e09a0ed0bd7aaeb6b232bfeac83390
+      preConditions:
+        - onError: WARN
+        - onErrorMessage: Init script which creates actual db structure (with partitions) was skipped because postgres version is lower than 14 or db structure is already exist.
+        - onFail: MARK_RAN
+        - sqlCheck:
+           expectedResult: t
+           sql: select (SELECT current_setting('server_version'))::decimal >= 14 as result
+        - not:
+            - tableExists:
+               tableName: mb_config
+      comment: Init script which creates actual db structure (without partitions) will be executed if postgres version is 14+ and db structure is not exist (mb_config table is not exist).
+      changes:
+        - sqlFile:
+            path: sql/reports_with_partitions_schemaonly_plain.sql
+            relativeToChangelogFile: true
+            splitStatements: false
+        - sqlFile:
+            path: sql/create_partitions.sql
+            relativeToChangelogFile: true
+            splitStatements: false
