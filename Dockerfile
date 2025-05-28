@@ -13,14 +13,14 @@ WORKDIR $HOME_EX
 RUN echo "https://dl-cdn.alpinelinux.org/alpine/v3.21/community/" >/etc/apk/repositories && \
     echo "https://dl-cdn.alpinelinux.org/alpine/v3.21/main/" >>/etc/apk/repositories && \
     apk add --update --no-cache --no-check-certificate \
-       bash=5.2.21-r0 \
-        curl=8.5.0-r0 \
+        bash=5.2.37-r0 \
+        curl=8.12.1-r1 \
         font-dejavu=2.37-r5 \
-        fontconfig=2.14.2-r4 \
+        fontconfig=2.15.0-r1 \
         gcompat=1.1.0-r4 \
-        gettext=0.22.3-r0 \
-        git=2.43.0-r0 \
-        htop=3.2.2-r1 \
+        gettext=0.22.5-r0 \
+        git=2.47.2-r0 \
+        htop=3.3.0-r0 \
         jq=1.7.1-r0 \
         libcrypto3=3.3.3-r0 \
         libssl3=3.3.3-r0 \
