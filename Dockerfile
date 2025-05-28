@@ -22,15 +22,15 @@ RUN echo "https://dl-cdn.alpinelinux.org/alpine/v3.21/community/" >/etc/apk/repo
         git=2.43.0-r0 \
         htop=3.2.2-r1 \
         jq=1.7.1-r0 \
-        libcrypto3=3.1.4-r6 \
-        libssl3=3.1.4-r6 \
+        libcrypto3=3.3.3-r0 \
+        libssl3=3.3.3-r0 \
         net-tools=2.10-r3 \
         nss_wrapper=1.1.12-r1 \
-        procps-ng=4.0.4-r0 \
-        sysstat=12.6.2-r0 \
-        tcpdump=4.99.4-r1 \
-        wget=1.21.4-r0 \
-        zip=3.0-r12 && \
+        procps-ng=4.0.4-r2 \
+        sysstat=12.7.6-r0 \
+        tcpdump=4.99.5-r0 \
+        wget=1.25.0-r0 \
+        zip=3.0-r13 && \
       rm -rf /var/cache/apk/*
 
 COPY deployments/install deployments/install
@@ -47,7 +47,7 @@ RUN adduser -D -H -h /atp -s /bin/bash -u 1007 atp && \
     echo "${JAVA_HOME}/bin/java \$@" >/usr/bin/java && \
     chmod a+x /usr/bin/java
 
-RUN unzip /tmp/common-*.zip -d $HOME_EX/ && \
+RUN unzip /tmp/*.zip -d $HOME_EX/ && \
     cp -r dist/atp /atp/ && chmod -R 775 /atp/ && \
     chown -R atp:root $HOME_EX/ && \
     find $HOME_EX -type f -name '*.sh' -exec chmod a+x {} + && \
