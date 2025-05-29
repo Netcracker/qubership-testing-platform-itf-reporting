@@ -37,6 +37,7 @@ COPY deployments/install deployments/install
 COPY deployments/atp-common-scripts deployments/atp-common-scripts
 COPY build-context/common/target/ /tmp/
 
+
 RUN mkdir -p dist/atp deployments/update && \
     cp -r deployments/install/* deployments/update/ && \
     find deployments -maxdepth 1 -regex '.*/\(install\|update\|atp-common-scripts\)$' -exec mv -t dist/atp {} +
