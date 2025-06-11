@@ -25,7 +25,7 @@
     </modules>
 
     <name>${project.groupId}:${project.artifactId}</name>
-    <description>ATP Itf Reporting</description>
+    <description>Qubership Testing Platform ITF Reporting Service</description>
     <url>https://github.com/Netcracker/qubership-testing-platform-itf-reporting</url>
     <licenses>
         <license>
@@ -43,7 +43,7 @@
     </developers>
     <scm>
         <connection>scm:git:https//github.com/Netcracker/qubership-testing-platform-itf-reporting.git</connection>
-        <developerConnection>scm:git:https://github.com:Netcracker/qubership-testing-platform-itf-reporting.git</developerConnection>
+        <developerConnection>scm:git:https://github.com/Netcracker/qubership-testing-platform-itf-reporting.git</developerConnection>
         <url>scm:git:https://github.com/Netcracker/qubership-testing-platform-itf-reporting/tree/main</url>
     </scm>
 
@@ -156,36 +156,6 @@
                 <configuration>
                     <argLine>-Dfile.encoding=UTF-8</argLine>
                 </configuration>
-            </plugin>
-            <plugin>
-                <groupId>com.google.code.maven-replacer-plugin</groupId>
-                <artifactId>replacer</artifactId>
-                <version>1.5.3</version>
-                <executions>
-                    <execution>
-                        <phase>deploy</phase>
-                        <goals>
-                            <goal>replace</goal>
-                        </goals>
-                        <configuration>
-                            <basedir>./</basedir>
-                            <includes>
-                                <include>pom.xml</include>
-                                <include>parent/parent-dependencies/pom.xml</include>
-                                <include>parent/parent-java/pom.xml</include>
-                                <include>common/pom.xml</include>
-                                <include>atp-itf-reporting-rest-openapi-specifications/pom.xml</include>
-                                <include>report/pom.xml</include>
-                            </includes>
-                            <replacements>
-                                <replacement>
-                                    <token>\$\{atp.service.version\}</token>
-                                    <value>${atp.service.version}</value>
-                                </replacement>
-                            </replacements>
-                        </configuration>
-                    </execution>
-                </executions>
             </plugin>
         </plugins>
     </build>

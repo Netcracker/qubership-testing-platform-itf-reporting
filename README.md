@@ -1,6 +1,6 @@
-# ATP-ITF-REPORTING
+# Qubership Testing Platform ITF Reporting Service
 
-**Qubership ATP-ITF-REPORTING** (QS-ATP-ITF-REPORTING) is a backend component of `Integrations Testing Framework`
+**Qubership TP ITF Reporting Service** is a backend component of `Integrations Testing Framework`
 
 ## Problem statement
 When some complex application systems are integrated, they are on the different life cycle stages at the moment.
