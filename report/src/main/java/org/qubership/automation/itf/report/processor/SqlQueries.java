@@ -125,7 +125,7 @@ public interface SqlQueries {
             .appendQueryPart(", ").asLong("instance")
             .appendQueryPart(", ").asLong("tc_id")
             .appendQueryPart(", ").asInt("partNum")
-            .appendQueryPart(") RETURNING id");
+            .appendQueryPart(") ON CONFLICT (id, part_num) DO NOTHING RETURNING id");
 
     StatementContext STORE_SP_CONTEXT = new StatementContext()
             .appendQueryPart("INSERT INTO " + DBSCHEMA + ".mb_context as spc (id, type, name, "
@@ -141,7 +141,7 @@ public interface SqlQueries {
             .appendQueryPart(", ").asLong("incomingMessage")
             .appendQueryPart(", ").asLong("outgoingMessage")
             .appendQueryPart(", ").asLong("parent")
-            .appendQueryPart(", ").asString("validationResults")
+            .appendQueryPart(", ").asStringFixedZero("validationResults")
             .appendQueryPart(", ").asInt("partNum")
             .appendQueryPart(") RETURNING id");
 
@@ -288,7 +288,7 @@ public interface SqlQueries {
             .asLong("id").appendQueryPart(" end)")
             .appendQueryPart(", ").asInt("partNum")
             .appendQueryPart(", ").asStringFixedZero("text")
-            .appendQueryPart(") RETURNING id ");
+            .appendQueryPart(") ON CONFLICT (id, part_num) DO NOTHING RETURNING id");
 
     StatementContext STORE_MESSAGE_HEADERS = new StatementContext()
             .appendQueryPart("INSERT INTO " + DBSCHEMA
@@ -311,7 +311,7 @@ public interface SqlQueries {
             .appendQueryPart(", ").asBoolean("multiple")
             .appendQueryPart(", ").asLong("parent")
             .appendQueryPart(", ").asInt("partNum")
-            .appendQueryPart(") RETURNING id");
+            .appendQueryPart(") ON CONFLICT (id, part_num) DO NOTHING RETURNING id");
 
     StatementContext STORE_MESSAGE_PARAMETER_VALUE = new StatementContext()
             .appendQueryPart("INSERT INTO " + DBSCHEMA

@@ -27,6 +27,8 @@ import java.util.List;
 
 import javax.annotation.Nonnull;
 
+import org.apache.commons.lang3.StringUtils;
+
 import com.google.common.collect.Lists;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
@@ -193,7 +195,16 @@ public class StatementContext {
         addParameter(new AbstractSetter(prop, Types.VARCHAR) {
             @Override
             protected Object convertJsonValue(JsonElement element) {
-                return element.getAsString().replace((char) 0, (char) 32);
+                /*
+                    Old replacement was:
+                        .replace((char) 0, (char) 32)
+                    It worked fine; have changed to the below variant for unification
+                    with ExecutionReportQueryExecutor.java#fixUnicodeZeroByteSequence.
+                    It was tested: both replacements do the same (except different new char).
+                 */
+                return element.getAsString()
+                        //.replace((char) 0, (char) 32)
+                        .replace("\u0000", StringUtils.EMPTY);
             }
         });
         getQuery().append("?");

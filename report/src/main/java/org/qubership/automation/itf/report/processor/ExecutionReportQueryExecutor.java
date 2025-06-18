@@ -257,7 +257,7 @@ public class ExecutionReportQueryExecutor extends AbstractQueryExecutor implemen
      * @return - source string (in case it's null or empty),
      *              otherwise string with "\u0000" replaced to StringUtils.EMPTY.
      */
-    private String fixUnicodeZeroByteSequence(String source) {
+    public static String fixUnicodeZeroByteSequence(String source) {
         return StringUtils.isEmpty(source) ? source : source.replace("\u0000", StringUtils.EMPTY);
     }
 
@@ -697,7 +697,7 @@ public class ExecutionReportQueryExecutor extends AbstractQueryExecutor implemen
             log.debug("MessageParameterValueStorage - before execute");
             JsonElement value = object.get("value");
             if (!value.isJsonNull()) {
-                object.add("value", new JsonPrimitive(queryExecutor.fixUnicodeZeroByteSequence(
+                object.add("value", new JsonPrimitive(fixUnicodeZeroByteSequence(
                         value.isJsonPrimitive() ? value.getAsString() : value.toString())));
             }
             return queryExecutor.execute(STORE_MESSAGE_PARAMETER_VALUE, object, true);
