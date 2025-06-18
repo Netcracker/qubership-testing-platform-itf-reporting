@@ -151,7 +151,9 @@ jobs:
             exit 1
           fi
           echo "components=${components}" >> $GITHUB_OUTPUT
+          cat $GITHUB_OUTPUT
           echo "platforms=${platforms}" >> $GITHUB_OUTPUT
+          cat $GITHUB_OUTPUT
   test-atrifact:
     needs: [deploy]
     runs-on: ubuntu-latest
@@ -185,7 +187,6 @@ jobs:
         with:
           ref: v${{ needs.deploy.outputs.release-version }}
           download-artifact: true
-          custom-image-name: qubership-testing-platform-itf-reporting
           download-artifact-path: build-context
           dry-run: false
           component: ${{ toJson(matrix.component) }}

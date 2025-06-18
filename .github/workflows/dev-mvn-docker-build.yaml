@@ -64,7 +64,7 @@ jobs:
           download-artifact: true
           custom-image-name: qubership-testing-platform-itf-reporting
           download-artifact-path: build-context
-          component: '[{"name": "", "file": "./Dockerfile", "context": "."}]'
+          component: '[{"name": "qubership-testing-platform-itf-reporting", "file": "./Dockerfile", "context": "."}]'
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
@@ -76,6 +76,6 @@ jobs:
           tags: ${{steps.metadata.outputs.result}}
           download-artifact: false
           custom-image-name: qubership-testing-platform-itf-reporting-transfer
-          component: '[{"name": "", "file": "docker-transfer/Dockerfile", "context": "."}]'
+          component: '[{"name": "qubership-testing-platform-itf-reporting-transfer", "file": "docker-transfer/Dockerfile", "context": "."}]'
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
