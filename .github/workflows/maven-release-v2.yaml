@@ -167,6 +167,7 @@ jobs:
           echo "Listing build-context recursively:"
           pwd
           ls -R build-context   
+          echo "components=${components}"
 
   docker-build:
     permissions:
