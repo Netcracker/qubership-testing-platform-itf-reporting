@@ -3,12 +3,12 @@
 ## How to start backend
 
 1. Clone repository
-`git clone <atp-itf-reporting repository url>`
+`git clone <itf-reporting repository url>`
 
 2. Build the project
-`mvn clean install`
+`mvn -P github clean install`
    
-3. Changed default configuration [`.run/backend.run.xml`](../.run/backend.run.xml)
+3. Change default configuration in the file .run/backend.run.xml (create file if absent; don't add it to Git)
 
     * Go to Run menu and click Edit Configuration
     * Set parameters

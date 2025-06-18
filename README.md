@@ -62,7 +62,7 @@ The 1st use case is when an interaction is initiated by an external system, not 
 
 So, ITF is used as a stub, serving requests instead of some (not implemented yet or not installed) external systems or parts of systems.
 
-![](./docs/images/use_case_1st.png)
+![](docs/images/use_case_1.png)
 
 The 2nd use case is when an interaction is initiated by ITF.
 
@@ -72,7 +72,7 @@ Variants, how ITF actions are invoked, include:
 2. Via ITF REST API (From Jenkins job or Postman)
 3. From ATP2 testcase via ITF action or executor-ITF action
 
-![](./docs/images/use_case_1st.png)
+![](docs/images/use_case_2.png)
 
 ## To configure tests
 1. ITF provides Web user interface:
@@ -102,10 +102,10 @@ Variants, how ITF actions are invoked, include:
    * RAM2
 
 ## High Level architecture
-![](./docs/images/high_level_architecture.png)
+![](docs/images/high_level_architecture.png)
 
 # Documentation:
 
-* ### [Installation Guide](./docs/installation-guide.md)
-* ### [Startup Guide](./docs/startup-guide.md)
-* ### [User Guide](./docs/user-guide.md)
+* ### [Installation Guide](docs/installation-guide.md)
+* ### [Startup Guide](docs/startup-guide.md)
+* ### [User Guide](docs/user-guide.md)
