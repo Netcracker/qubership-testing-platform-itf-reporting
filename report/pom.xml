@@ -264,7 +264,7 @@
 
         <!--For Spring context end-->
 
-        <!--For Kafka ATPII Spring context start-->
+        <!--For Kafka Spring context start-->
         <dependency>
             <groupId>org.apache.kafka</groupId>
             <artifactId>kafka-clients</artifactId>
@@ -274,7 +274,7 @@
             <artifactId>spring-kafka</artifactId>
             <version>2.9.11</version>
         </dependency>
-        <!--For Kafka ATPII Spring context end-->
+        <!--For Kafka Spring context end-->
         <!--For shedlock-spring start-->
         <dependency>
             <groupId>net.javacrumbs.shedlock</groupId>
