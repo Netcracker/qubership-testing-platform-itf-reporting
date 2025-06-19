@@ -43,7 +43,7 @@ public class StatementContext {
         return query;
     }
 
-    public void addParameter(@Nonnull Setter setter) {
+    public void addParameter(@Nonnull final Setter setter) {
         params.add(setter);
     }
 
@@ -52,7 +52,8 @@ public class StatementContext {
      */
     @SuppressFBWarnings(value = "SQL_PREPARED_STATEMENT_GENERATED_FROM_NONCONSTANT_STRING",
             justification = "Only application-controlled code can be here")
-    public PreparedStatement prepare(JsonObject json, Connection connection) throws SQLException {
+    public PreparedStatement prepare(final JsonObject json,
+                                     final Connection connection) throws SQLException {
         PreparedStatement statement = null;
         try {
             statement = connection.prepareStatement(getQuery().toString());
@@ -96,7 +97,7 @@ public class StatementContext {
     public StatementContext asLong(final String prop) {
         addParameter(new AbstractSetter(prop, Types.BIGINT) {
             @Override
-            protected Object convertJsonValue(JsonElement element) {
+            protected Object convertJsonValue(final JsonElement element) {
                 return element.getAsLong();
             }
         });
@@ -112,7 +113,7 @@ public class StatementContext {
     public StatementContext asInt(final String prop) {
         addParameter(new AbstractSetter(prop, Types.INTEGER) {
             @Override
-            protected Object convertJsonValue(JsonElement element) {
+            protected Object convertJsonValue(final JsonElement element) {
                 return element.getAsInt();
             }
         });
@@ -128,7 +129,7 @@ public class StatementContext {
     public StatementContext asDate(final String prop) {
         addParameter(new AbstractSetter(prop, Types.DATE) {
             @Override
-            protected Object convertJsonValue(JsonElement element) {
+            protected Object convertJsonValue(final JsonElement element) {
                 long dateLong = element.getAsLong();
                 return new Date(dateLong);
             }
@@ -145,7 +146,7 @@ public class StatementContext {
     public StatementContext asDataTime(final String prop) {
         addParameter(new AbstractSetter(prop, Types.TIMESTAMP) {
             @Override
-            protected Object convertJsonValue(JsonElement element) {
+            protected Object convertJsonValue(final JsonElement element) {
                 long dateLong = element.getAsLong();
                 return new Timestamp(dateLong);
             }
@@ -162,7 +163,7 @@ public class StatementContext {
     public StatementContext asBoolean(final String prop) {
         addParameter(new AbstractSetter(prop, Types.BOOLEAN) {
             @Override
-            protected Object convertJsonValue(JsonElement element) {
+            protected Object convertJsonValue(final JsonElement element) {
                 return element.getAsBoolean();
             }
         });
@@ -178,7 +179,7 @@ public class StatementContext {
     public StatementContext asString(final String prop) {
         addParameter(new AbstractSetter(prop, Types.VARCHAR) {
             @Override
-            protected Object convertJsonValue(JsonElement element) {
+            protected Object convertJsonValue(final JsonElement element) {
                 return element.getAsString();
             }
         });
@@ -194,7 +195,7 @@ public class StatementContext {
     public StatementContext asStringFixedZero(final String prop) {
         addParameter(new AbstractSetter(prop, Types.VARCHAR) {
             @Override
-            protected Object convertJsonValue(JsonElement element) {
+            protected Object convertJsonValue(final JsonElement element) {
                 /*
                     Old replacement was:
                         .replace((char) 0, (char) 32)

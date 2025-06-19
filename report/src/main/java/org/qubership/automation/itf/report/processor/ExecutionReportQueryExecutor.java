@@ -71,7 +71,7 @@ public class ExecutionReportQueryExecutor extends AbstractQueryExecutor implemen
      * @param mdcHelper - Mdc Helper
      */
     @Autowired
-    public ExecutionReportQueryExecutor(JdbcTemplate jdbcTemplate, MdcHelper mdcHelper) {
+    public ExecutionReportQueryExecutor(final JdbcTemplate jdbcTemplate, final MdcHelper mdcHelper) {
         this.mdcHelper = mdcHelper;
         setJdbcTemplate(jdbcTemplate);
     }
@@ -79,11 +79,11 @@ public class ExecutionReportQueryExecutor extends AbstractQueryExecutor implemen
     @SuppressFBWarnings(value = "ST_WRITE_TO_STATIC_FROM_INSTANCE_METHOD",
             justification = "Looks no problem with it")
     @Value("${atp.catalogue.url}")
-    public void setAtpCatalogueUrl(String atpCatalogueUrl) {
+    public void setAtpCatalogueUrl(final String atpCatalogueUrl) {
         ExecutionReportQueryExecutor.atpCatalogueUrl = atpCatalogueUrl;
     }
 
-    private static JsonObject trunc_propValues(JsonObject obj) {
+    private static JsonObject trunc_propValues(final JsonObject obj) {
         for (int k = 0; k < PROP_NAMES.length; k++) {
             if (obj.has(PROP_NAMES[k])) {
                 JsonElement prop = obj.get(PROP_NAMES[k]);
@@ -99,7 +99,7 @@ public class ExecutionReportQueryExecutor extends AbstractQueryExecutor implemen
         return obj;
     }
 
-    private static String makeContextLink(Object tcContextId, String projectUuid) {
+    private static String makeContextLink(final Object tcContextId, final String projectUuid) {
         return atpCatalogueUrl + "/project/" + projectUuid + "/itf#/context/" + tcContextId;
     }
 
@@ -135,7 +135,7 @@ public class ExecutionReportQueryExecutor extends AbstractQueryExecutor implemen
                 new ExecutionReportQueryExecutor.NoStorage());
     }
 
-    protected Object prepareData(ResultSet resultSet, JsonObject object) {
+    protected Object prepareData(final ResultSet resultSet, final JsonObject object) {
         Long id = 0L;
         if (resultSet != null) {
             try {
@@ -158,7 +158,7 @@ public class ExecutionReportQueryExecutor extends AbstractQueryExecutor implemen
      * @param objectType - type of object,
      * @return storage class corresponding to the type of object.
      */
-    public ExecutionReportQueryExecutor.Storage getStorageByType(String objectType) {
+    public ExecutionReportQueryExecutor.Storage getStorageByType(final String objectType) {
         if (Objects.isNull(objectType) || objectType.isEmpty()) {
             throw new IllegalArgumentException("Object type is required to process reported message correctly");
         }
@@ -168,8 +168,13 @@ public class ExecutionReportQueryExecutor extends AbstractQueryExecutor implemen
     /**
      * Process list or map of entities.
      */
-    private void forEach(JsonObject object, String property, StatementContext sql,
-                         boolean truncate, boolean isMap, String parentId, String onConflict) {
+    private void forEach(final JsonObject object,
+                         final String property,
+                         StatementContext sql,
+                         final boolean truncate,
+                         final boolean isMap,
+                         final String parentId,
+                         final String onConflict) {
         JsonObject jsonObject = new JsonObject();
         JsonElement elem = object.get(property);
         if (elem.isJsonNull()) {
@@ -192,13 +197,20 @@ public class ExecutionReportQueryExecutor extends AbstractQueryExecutor implemen
         this.execute(sql, jsonObject, false);
     }
 
-    private void forEachMap(JsonObject object, String property, StatementContext sql,
-                            @SuppressWarnings("SameParameterValue") boolean truncate, String onConflict) {
+    private void forEachMap(final JsonObject object,
+                            final String property,
+                            StatementContext sql,
+                            @SuppressWarnings("SameParameterValue") final boolean truncate,
+                            final String onConflict) {
         forEach(object, property, sql, truncate, true, "id", onConflict);
     }
 
-    private void forEachPrepareStatementContext(JsonObject object, String property, StatementContext sql,
-                                                Boolean truncate, JsonObject jsonObject, String parentId) {
+    private void forEachPrepareStatementContext(final JsonObject object,
+                                                final String property,
+                                                StatementContext sql,
+                                                final Boolean truncate,
+                                                final JsonObject jsonObject,
+                                                final String parentId) {
         int count = 1;
         jsonObject.add(PART_NUM_PROPERTY_NAME, object.get(PART_NUM_PROPERTY_NAME));
         jsonObject.add(parentId, object.get(parentId));
@@ -219,9 +231,12 @@ public class ExecutionReportQueryExecutor extends AbstractQueryExecutor implemen
         }
     }
 
-    private void forEachMapPrepareStatementContext(JsonObject object, String property,
-                                                   StatementContext sql, Boolean truncate,
-                                                   JsonObject jsonObject, String idElemName) {
+    private void forEachMapPrepareStatementContext(final JsonObject object,
+                                                   final String property,
+                                                   StatementContext sql,
+                                                   final Boolean truncate,
+                                                   final JsonObject jsonObject,
+                                                   final String idElemName) {
         JsonElement propElem = object.get(property);
         if (propElem != null && !propElem.isJsonNull()) {
             jsonObject.add(PART_NUM_PROPERTY_NAME, object.get(PART_NUM_PROPERTY_NAME));
@@ -257,11 +272,14 @@ public class ExecutionReportQueryExecutor extends AbstractQueryExecutor implemen
      * @return - source string (in case it's null or empty),
      *              otherwise string with "\u0000" replaced to StringUtils.EMPTY.
      */
-    public static String fixUnicodeZeroByteSequence(String source) {
+    public static String fixUnicodeZeroByteSequence(final String source) {
         return StringUtils.isEmpty(source) ? source : source.replace("\u0000", StringUtils.EMPTY);
     }
 
-    private void cutAndFixValue(boolean truncate, JsonElement value, JsonObject jsonObject, String valueName) {
+    private void cutAndFixValue(final boolean truncate,
+                                final JsonElement value,
+                                final JsonObject jsonObject,
+                                final String valueName) {
         if (value.isJsonNull()) {
             jsonObject.add(valueName, value);
         } else {
@@ -271,16 +289,15 @@ public class ExecutionReportQueryExecutor extends AbstractQueryExecutor implemen
         }
     }
 
-    private boolean isMultiple(JsonObject jsonObject) {
-        boolean isMultiple = false;
+    private boolean isMultiple(final JsonObject jsonObject) {
         if (jsonObject.has("multiple")) {
             try {
-                isMultiple = jsonObject.get("multiple").getAsBoolean();
+                return jsonObject.get("multiple").getAsBoolean();
             } catch (Exception e) {
-                log.error("Error while getting multiple value from json", e);
+                log.error("Error while getting 'multiple' property value from json", e);
             }
         }
-        return isMultiple;
+        return false;
     }
 
     /**
@@ -295,10 +312,11 @@ public class ExecutionReportQueryExecutor extends AbstractQueryExecutor implemen
                 throws SQLException;
     }
 
-    private static class CombinedTcContextInitiatorStorage implements Storage {
+    private static final class CombinedTcContextInitiatorStorage implements Storage {
 
         @Override
-        public Object store(JsonObject object, ExecutionReportQueryExecutor queryExecutor) throws SQLException {
+        public Object store(final JsonObject object,
+                            final ExecutionReportQueryExecutor queryExecutor) throws SQLException {
             log.debug("CombinedTcContextInitiatorStorage");
             JsonElement partNum = object.get(PART_NUM_PROPERTY_NAME);
             JsonObject initiatorObject = object.get("Initiator").getAsJsonObject();
@@ -314,16 +332,18 @@ public class ExecutionReportQueryExecutor extends AbstractQueryExecutor implemen
         }
 
         @Override
-        public Object store(JsonObject object, ExecutionReportQueryExecutor queryExecutor, String parentType)
-                throws SQLException {
+        public Object store(final JsonObject object,
+                            final ExecutionReportQueryExecutor queryExecutor,
+                            final String parentType) throws SQLException {
             return store(object, queryExecutor); // parentType is NOT valuable here
         }
     }
 
-    private static class CombinedFastStubMessage implements Storage {
+    private static final class CombinedFastStubMessage implements Storage {
 
         @Override
-        public Object store(JsonObject object, ExecutionReportQueryExecutor queryExecutor) throws SQLException {
+        public Object store(final JsonObject object,
+                            final ExecutionReportQueryExecutor queryExecutor) throws SQLException {
             log.debug("CombinedFastStubMessage");
             JsonElement partNum = object.get(PART_NUM_PROPERTY_NAME);
             // Insert initiatorObject
@@ -364,13 +384,14 @@ public class ExecutionReportQueryExecutor extends AbstractQueryExecutor implemen
         }
 
         @Override
-        public Object store(JsonObject object, ExecutionReportQueryExecutor queryExecutor, String parentType)
-                throws SQLException {
+        public Object store(final JsonObject object,
+                            final ExecutionReportQueryExecutor queryExecutor,
+                            final String parentType) throws SQLException {
             return store(object, queryExecutor); // parentType is NOT valuable here
         }
     }
 
-    private static class TcContextStorage implements Storage {
+    private static final class TcContextStorage implements Storage {
 
         /*
          * Prerequisites:
@@ -378,7 +399,8 @@ public class ExecutionReportQueryExecutor extends AbstractQueryExecutor implemen
          *  2. partNum property is present in the TcContext object.
          */
         @Override
-        public Object store(JsonObject object, ExecutionReportQueryExecutor queryExecutor) throws SQLException {
+        public Object store(final JsonObject object,
+                            final ExecutionReportQueryExecutor queryExecutor) {
             log.debug("TcContextStorage");
             JsonElement partNum = object.get(PART_NUM_PROPERTY_NAME);
             JsonElement idElem = object.get("id");
@@ -398,30 +420,33 @@ public class ExecutionReportQueryExecutor extends AbstractQueryExecutor implemen
         }
 
         @Override
-        public Object store(JsonObject object, ExecutionReportQueryExecutor queryExecutor, String parentType)
-                throws SQLException {
+        public Object store(final JsonObject object,
+                            final ExecutionReportQueryExecutor queryExecutor,
+                            final String parentType) {
             return store(object, queryExecutor); // parentType is NOT valuable here
         }
     }
 
-    private static class InstanceContextStorage implements Storage {
+    private static final class InstanceContextStorage implements Storage {
 
         @Override
-        public Object store(JsonObject object, ExecutionReportQueryExecutor queryExecutor)
-                throws SQLException {
+        public Object store(final JsonObject object,
+                            final ExecutionReportQueryExecutor queryExecutor) throws SQLException {
             return store(object, queryExecutor, true);
         }
 
         @Override
-        public Object store(JsonObject object, ExecutionReportQueryExecutor queryExecutor, String parentType)
-                throws SQLException {
+        public Object store(final JsonObject object,
+                            final ExecutionReportQueryExecutor queryExecutor,
+                            final String parentType) throws SQLException {
             return "SituationInstance".equals(parentType) ? store(object, queryExecutor, false) : null;
         }
 
-        private Object store(JsonObject object, ExecutionReportQueryExecutor queryExecutor, boolean storeSp)
-                throws SQLException {
+        private Object store(final JsonObject object,
+                             final ExecutionReportQueryExecutor queryExecutor,
+                             final boolean storeSp) throws SQLException {
             log.debug("InstanceContextStorage");
-            // After ATPII-41822, 2023-12-19, it's ensured that id always be generated on executor side.
+            // After 2023-12-19, it's ensured that id is always generated on executor side.
             // But, for reported from fast-stubs messages, ids are generated here.
             Object id = queryExecutor.execute(STORE_INSTANCE_CONTEXT, trunc_propValues(object), true);
             if (object.get("id").isJsonNull()) {
@@ -440,20 +465,18 @@ public class ExecutionReportQueryExecutor extends AbstractQueryExecutor implemen
         }
     }
 
-    private static class SpContextStorage implements Storage {
+    private static final class SpContextStorage implements Storage {
 
         /*
-         * After ATPII-41822, 2023-12-19, it's ensured that id always be generated on executor side,
+         * After 2023-12-19, it's ensured that id is always generated on executor side,
          * for objects: InstanceContext, SpContext, Message and MessageParameter.
          */
         @Override
-        public Object store(JsonObject object, ExecutionReportQueryExecutor queryExecutor)
-                throws SQLException {
+        public Object store(final JsonObject object,
+                            final ExecutionReportQueryExecutor queryExecutor) throws SQLException {
             log.debug("SpContextStorage");
-            Long incomingMessageId = 0L;
-            Long outgoingMessageId = 0L;
-            processMessage(object, queryExecutor, "incomingMessage", incomingMessageId);
-            processMessage(object, queryExecutor, "outgoingMessage", outgoingMessageId);
+            processMessage(object, queryExecutor, "incomingMessage");
+            processMessage(object, queryExecutor, "outgoingMessage");
             Object spId = queryExecutor.execute(STORE_SP_CONTEXT, trunc_propValues(object), true);
             object.remove("id");
             object.add("id", new JsonPrimitive((Long) spId));
@@ -498,22 +521,22 @@ public class ExecutionReportQueryExecutor extends AbstractQueryExecutor implemen
         }
 
         @Override
-        public Object store(JsonObject object, ExecutionReportQueryExecutor queryExecutor, String parentType)
-                throws SQLException {
+        public Object store(final JsonObject object,
+                            final ExecutionReportQueryExecutor queryExecutor,
+                            final String parentType) throws SQLException {
             return store(object, queryExecutor); // parentType is NOT valuable here
         }
 
-        private void processMessage(JsonObject object, ExecutionReportQueryExecutor queryExecutor,
-                                    String elementName, Long messageId)
-                throws SQLException {
+        private void processMessage(final JsonObject object,
+                                    final ExecutionReportQueryExecutor queryExecutor,
+                                    final String elementName) throws SQLException {
             log.debug("SpContextStorage - processMessage {}", elementName);
             if (!object.get(elementName).isJsonNull()) {
-                if (messageId == 0) {
-                    JsonObject msgObject = object.getAsJsonObject(elementName);
-                    msgObject.add(PART_NUM_PROPERTY_NAME, object.get(PART_NUM_PROPERTY_NAME));
-                    messageId = (Long) queryExecutor.getStorageByType("Message")
-                            .store(object.getAsJsonObject(elementName), queryExecutor);
-                }
+                JsonObject msgObject = object.getAsJsonObject(elementName);
+                msgObject.add(PART_NUM_PROPERTY_NAME, object.get(PART_NUM_PROPERTY_NAME));
+                Long messageId = (Long) queryExecutor
+                        .getStorageByType("Message")
+                        .store(msgObject, queryExecutor);
                 object.remove(elementName);
                 object.add(elementName, messageId == null || messageId == 0
                         ? JsonNull.INSTANCE : new JsonPrimitive(messageId));
@@ -521,11 +544,11 @@ public class ExecutionReportQueryExecutor extends AbstractQueryExecutor implemen
         }
     }
 
-    private static class CombinedStepInstanceSituationInstance implements Storage {
+    private static final class CombinedStepInstanceSituationInstance implements Storage {
 
         @Override
-        public Object store(JsonObject object, ExecutionReportQueryExecutor queryExecutor)
-                throws SQLException {
+        public Object store(final JsonObject object,
+                            final ExecutionReportQueryExecutor queryExecutor) throws SQLException {
             log.debug("CombinedStepInstanceSituationInstance");
             JsonElement partNum = object.get(PART_NUM_PROPERTY_NAME);
             JsonObject situationInstanceObject = object.get("SituationInstance").getAsJsonObject();
@@ -539,18 +562,19 @@ public class ExecutionReportQueryExecutor extends AbstractQueryExecutor implemen
         }
 
         @Override
-        public Object store(JsonObject object, ExecutionReportQueryExecutor queryExecutor, String parentType)
-                throws SQLException {
+        public Object store(final JsonObject object,
+                            final ExecutionReportQueryExecutor queryExecutor,
+                            final String parentType) throws SQLException {
             return store(object, queryExecutor); // parentType is NOT valuable here
         }
     }
 
-    private static class CombinedSituationInstanceStepInstances implements Storage {
+    private static final class CombinedSituationInstanceStepInstances implements Storage {
 
         @Override
-        public Object store(JsonObject object, ExecutionReportQueryExecutor queryExecutor)
-                throws SQLException {
-            log.debug("CombinedStepInstanceSituationInstance");
+        public Object store(final JsonObject object,
+                            final ExecutionReportQueryExecutor queryExecutor) throws SQLException {
+            log.debug("CombinedSituationInstanceStepInstances");
             JsonElement partNum = object.get(PART_NUM_PROPERTY_NAME);
             JsonObject situationInstanceObject = object.get("SituationInstance").getAsJsonObject();
             situationInstanceObject.add(PART_NUM_PROPERTY_NAME, partNum);
@@ -571,13 +595,14 @@ public class ExecutionReportQueryExecutor extends AbstractQueryExecutor implemen
         }
 
         @Override
-        public Object store(JsonObject object, ExecutionReportQueryExecutor queryExecutor, String parentType)
-                throws SQLException {
+        public Object store(final JsonObject object,
+                            final ExecutionReportQueryExecutor queryExecutor,
+                            final String parentType) throws SQLException {
             return store(object, queryExecutor); // parentType is NOT valuable here
         }
     }
 
-    private static class StepInstanceStorage implements Storage {
+    private static final class StepInstanceStorage implements Storage {
 
         /*
          * Prerequisites:
@@ -585,8 +610,8 @@ public class ExecutionReportQueryExecutor extends AbstractQueryExecutor implemen
          *  2. partNum property is present in the StepInstance object.
          */
         @Override
-        public Object store(JsonObject object, ExecutionReportQueryExecutor queryExecutor)
-                throws SQLException {
+        public Object store(final JsonObject object,
+                            final ExecutionReportQueryExecutor queryExecutor) throws SQLException {
             log.debug("StepInstanceStorage");
             JsonElement partNum = object.get(PART_NUM_PROPERTY_NAME);
             Object id = queryExecutor.execute(STORE_STEP_INSTANCE, trunc_propValues(object), true);
@@ -604,48 +629,52 @@ public class ExecutionReportQueryExecutor extends AbstractQueryExecutor implemen
         }
 
         @Override
-        public Object store(JsonObject object, ExecutionReportQueryExecutor queryExecutor, String parentType)
-                throws SQLException {
+        public Object store(final JsonObject object,
+                            final ExecutionReportQueryExecutor queryExecutor,
+                            final String parentType) throws SQLException {
             return store(object, queryExecutor); // parentType is NOT valuable here
         }
     }
 
-    private static class SituationInstanceStorage implements Storage {
+    private static final class SituationInstanceStorage implements Storage {
 
         @Override
-        public Object store(JsonObject object, ExecutionReportQueryExecutor queryExecutor)
-                throws SQLException {
+        public Object store(final JsonObject object,
+                            final ExecutionReportQueryExecutor queryExecutor) {
             log.info("SituationInstanceStorage (to check before deletion)");
             return queryExecutor.execute(UPSERT_SITUATION_INSTANCE, trunc_propValues(object), true);
         }
 
         @Override
-        public Object store(JsonObject object, ExecutionReportQueryExecutor queryExecutor, String parentType)
-                throws SQLException {
+        public Object store(final JsonObject object,
+                            final ExecutionReportQueryExecutor queryExecutor,
+                            final String parentType) {
             return store(object, queryExecutor);
         }
     }
 
-    private static class CallChainInstanceStorage implements Storage {
+    private static final class CallChainInstanceStorage implements Storage {
 
         @Override
-        public Object store(JsonObject object, ExecutionReportQueryExecutor queryExecutor)
-                throws SQLException {
+        public Object store(final JsonObject object,
+                            final ExecutionReportQueryExecutor queryExecutor) {
             log.debug("CallChainInstanceStorage");
             return queryExecutor.execute(STORE_CALL_CHAIN_INSTANCE, trunc_propValues(object), true);
         }
 
         @Override
-        public Object store(JsonObject object, ExecutionReportQueryExecutor queryExecutor, String parentType)
-                throws SQLException {
+        public Object store(final JsonObject object,
+                            final ExecutionReportQueryExecutor queryExecutor,
+                            final String parentType) {
             return store(object, queryExecutor);
         }
     }
 
-    private static class MessageStorage implements Storage {
+    private static final class MessageStorage implements Storage {
 
         @Override
-        public Object store(JsonObject object, ExecutionReportQueryExecutor queryExecutor) throws SQLException {
+        public Object store(final JsonObject object,
+                            final ExecutionReportQueryExecutor queryExecutor) {
             log.debug("MessageStorage");
             Object messageId = queryExecutor.execute(STORE_MESSAGE, object, true);
             if (messageId != null && (Long) messageId != 0L) {
@@ -657,7 +686,7 @@ public class ExecutionReportQueryExecutor extends AbstractQueryExecutor implemen
                         because the current java code and messages sending process guarantee
                         that a message is stored once.
                         So, no conflicts can arise.
-                * */
+                */
                 queryExecutor.forEachMap(object, "headers",
                         new StatementContext().appendQueryPart(STORE_MESSAGE_HEADERS.getQuery().toString()),
                         false, StringUtils.EMPTY);
@@ -669,31 +698,35 @@ public class ExecutionReportQueryExecutor extends AbstractQueryExecutor implemen
         }
 
         @Override
-        public Object store(JsonObject object, ExecutionReportQueryExecutor queryExecutor, String parentType)
-                throws SQLException {
+        public Object store(final JsonObject object,
+                            final ExecutionReportQueryExecutor queryExecutor,
+                            final String parentType) {
             return store(object, queryExecutor); // parentType is NOT valuable here
         }
     }
 
-    private static class MessageParameterStorage implements Storage {
+    private static final class MessageParameterStorage implements Storage {
 
         @Override
-        public Object store(JsonObject object, ExecutionReportQueryExecutor queryExecutor) throws SQLException {
+        public Object store(final JsonObject object,
+                            final ExecutionReportQueryExecutor queryExecutor) {
             log.debug("MessageParameterStorage - before execute");
             return queryExecutor.execute(STORE_MESSAGE_PARAMETER, object, true);
         }
 
         @Override
-        public Object store(JsonObject object, ExecutionReportQueryExecutor queryExecutor, String parentType)
-                throws SQLException {
+        public Object store(final JsonObject object,
+                            final ExecutionReportQueryExecutor queryExecutor,
+                            final String parentType) {
             return store(object, queryExecutor); // parentType is NOT valuable here
         }
     }
 
-    private static class MessageParameterValueStorage implements Storage {
+    private static final class MessageParameterValueStorage implements Storage {
 
         @Override
-        public Object store(JsonObject object, ExecutionReportQueryExecutor queryExecutor) throws SQLException {
+        public Object store(final JsonObject object,
+                            final ExecutionReportQueryExecutor queryExecutor) {
             log.debug("MessageParameterValueStorage - before execute");
             JsonElement value = object.get("value");
             if (!value.isJsonNull()) {
@@ -704,23 +737,25 @@ public class ExecutionReportQueryExecutor extends AbstractQueryExecutor implemen
         }
 
         @Override
-        public Object store(JsonObject object, ExecutionReportQueryExecutor queryExecutor, String parentType)
-                throws SQLException {
+        public Object store(final JsonObject object,
+                            final ExecutionReportQueryExecutor queryExecutor,
+                            final String parentType) {
             return store(object, queryExecutor);
         }
     }
 
-    private static class NoStorage implements Storage {
+    private static final class NoStorage implements Storage {
 
         @Override
-        public Object store(JsonObject object, ExecutionReportQueryExecutor queryExecutor) {
-            log.warn("Type storage is no");
+        public Object store(final JsonObject object, final ExecutionReportQueryExecutor queryExecutor) {
+            log.warn("Unknown storage type. Data isn't stored.");
             return "NoStorage";
         }
 
         @Override
-        public Object store(JsonObject object, ExecutionReportQueryExecutor queryExecutor, String parentType)
-                throws SQLException {
+        public Object store(final JsonObject object,
+                            final ExecutionReportQueryExecutor queryExecutor,
+                            final String parentType) {
             return store(object, queryExecutor);
         }
     }

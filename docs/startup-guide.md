@@ -7,7 +7,7 @@
 
 2. Build the project
 `mvn -P github clean install`
-   
+
 3. Change default configuration in the file .run/backend.run.xml (create file if absent; don't add it to Git)
 
     * Go to Run menu and click Edit Configuration
@@ -17,7 +17,7 @@
 **NOTE:** Configuration files [`application.properties`](../common/application.properties) and [`bootstrap.properties`](../common/bootstrap.properties)
 
 **NOTE:** Configuration logging file [`logback-spring.xml`](../common/logback-spring.xml)
-   
+
 ```properties
 ##==============================Undertow===============================
 server.port=${HTTP_PORT}
