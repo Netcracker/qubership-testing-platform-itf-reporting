@@ -3,12 +3,13 @@
     <parent>
         <groupId>org.qubership.atp-itf-reporting</groupId>
         <artifactId>parent-java</artifactId>
-        <version>4.4.109-SNAPSHOT</version>
+        <version>4.4.108-SNAPSHOT</version>
         <relativePath>../parent/parent-java/pom.xml</relativePath>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>report</artifactId>
+    <name>report</name>
 
     <properties>
         <abbreviation>mockingbird</abbreviation>

@@ -5,11 +5,12 @@
     <parent>
         <artifactId>parent-java</artifactId>
         <groupId>org.qubership.atp-itf-reporting</groupId>
-        <version>4.4.109-SNAPSHOT</version>
+        <version>4.4.108-SNAPSHOT</version>
         <relativePath>../parent/parent-java/pom.xml</relativePath>
     </parent>
 
     <artifactId>atp-itf-reporting-rest-openapi-specifications</artifactId>
+    <name>atp-itf-reporting-rest-openapi-specifications</name>
 
     <packaging>jar</packaging>
     <build>
