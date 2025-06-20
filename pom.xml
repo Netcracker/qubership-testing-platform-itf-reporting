@@ -3,7 +3,7 @@
 
     <groupId>org.qubership.atp-itf-reporting</groupId>
     <artifactId>atp-itf-reporting</artifactId>
-    <version>4.4.110-SNAPSHOT</version>
+    <version>4.4.108-SNAPSHOT</version>
     <packaging>pom</packaging>
 
     <modules>
@@ -67,7 +67,9 @@
                         <configuration>
                             <publishingServerId>central</publishingServerId>
                             <autoPublish>true</autoPublish>
+                            <!--
                             <waitUntil>published</waitUntil>
+                            -->
                         </configuration>
                     </plugin>
                     <plugin>
