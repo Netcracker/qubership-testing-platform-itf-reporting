@@ -3,7 +3,7 @@
     <parent>
         <groupId>org.qubership.atp-itf-reporting</groupId>
         <artifactId>atp-itf-reporting</artifactId>
-        <version>4.4.109-SNAPSHOT</version>
+        <version>4.4.110-SNAPSHOT</version>
         <relativePath>../../pom.xml</relativePath>
     </parent>
     <artifactId>parent-dependencies</artifactId>
