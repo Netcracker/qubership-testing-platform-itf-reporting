@@ -151,24 +151,7 @@ jobs:
             exit 1
           fi
           echo "components=${components}" >> $GITHUB_OUTPUT
-          cat $GITHUB_OUTPUT
           echo "platforms=${platforms}" >> $GITHUB_OUTPUT
-          cat $GITHUB_OUTPUT
-  test-atrifact:
-    needs: [deploy]
-    runs-on: ubuntu-latest
-    if: ${{ needs.deploy.result == 'success' }}
-    steps:
-      - name: Download Artifact
-        uses: actions/download-artifact@v4
-        with:
-          name: "qubership-testing-platform-itf-reporting"
-          path: build-context
-      - name: List contents of build-context
-        run: |
-          echo "Listing build-context recursively:"
-          pwd
-          ls -R build-context   
 
   docker-build:
     permissions:
@@ -188,7 +171,6 @@ jobs:
           ref: v${{ needs.deploy.outputs.release-version }}
           download-artifact: true
           download-artifact-path: build-context
-          custom-image-name: qubership-testing-platform-itf-reporting
           dry-run: false
           component: ${{ toJson(matrix.component) }}
           platforms: ${{ needs.load-docker-build-components.outputs.platforms }}
