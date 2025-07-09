@@ -1,6 +1,6 @@
 FROM bellsoft/liberica-openjdk-alpine-musl:8u402
 
-LABEL maintainer="our-team@qubership.org"
+LABEL maintainer="opensourcegroup@netcracker.com"
 LABEL atp.service="atp-itf-reporting"
 
 ENV HOME_EX=/itf
