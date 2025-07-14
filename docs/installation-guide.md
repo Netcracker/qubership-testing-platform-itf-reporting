@@ -121,3 +121,12 @@
 
 1. Install k8s locally
 2. Install Helm
+
+## How to deploy tool
+
+1. Build snapshot (artifacts and docker image) of https://github.com/Netcracker/qubership-testing-platform-itf-reporting in GitHub
+2. Clone repository to a place, available from your openshift/kubernetes where you need to deploy the tool to
+3. Navigate to <repository-root>/deployments/charts/atp-itf-stubs folder
+4. Check/change configuration parameters in the ./values.yaml file according to your services installed
+5. Execute the command: `helm install atp-itf-reporting`
+6. After installation is completed, check deployment health
