@@ -232,7 +232,7 @@ runs:
         done
         
         echo "Get previous"
-        pod=$(kubectl get pods -n namespace -l app.kubernetes.io/instance=atp-itf-reporting -o jsonpath="{.items[0].metadata.name}")
+        pod=$(kubectl get pods -n namespace -o name | grep -vE 'postgres|activemq' | head -n 1 | cut -d/ -f2)
         kubectl logs -n namespace "$pod" --previous
   
         echo "Get pods"
