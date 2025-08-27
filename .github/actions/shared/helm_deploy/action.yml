@@ -181,6 +181,9 @@ runs:
             kubectl get pods -n ${{inputs.namespace}}
             ERROR_FLAG=true
           fi
+        
+        echo "Get pods"
+        kubectl get pods -n ${{ inputs.namespace }}
 
     - name: Install/update service with helm
       shell: bash
