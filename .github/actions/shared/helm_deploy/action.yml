@@ -233,7 +233,9 @@ runs:
         
         echo "Get previous"
         pod=$(kubectl get pods -n namespace -o name | grep -vE 'postgres|activemq' | head -n 1 | cut -d/ -f2)
+        echo "Selected pod: $pod"
         kubectl logs -n namespace "$pod" --previous
+        kubectl get pod "$pod" -n namespace -o jsonpath="{.status.containerStatuses[*].restartCount}"
   
         echo "Get pods"
         kubectl get pods -n ${{ inputs.namespace }}
