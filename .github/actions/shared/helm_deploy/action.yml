@@ -210,6 +210,8 @@ runs:
         echo "Get pods"
         kubectl get pods -n ${{ inputs.namespace }}
         kubectl get jobs -n ${{ inputs.namespace }}
+        echo "Get svc"
+        kubectl get svc -n ${{ inputs.namespace }}
         
         for pod in $(kubectl get pods -n ${{inputs.namespace}} --no-headers | awk '{print $1}'); do
           for ic in $(kubectl get pod "$pod" -n ${{inputs.namespace}} -o jsonpath="{.spec.initContainers[*].name}"); do
