@@ -159,15 +159,12 @@ runs:
     - name: Install ActiveMQ
       shell: bash
       run: |
-        helm repo add bitnami https://charts.bitnami.com/bitnami
+        helm repo add alfresco https://alfresco.github.io/alfresco-helm-charts/
+        helm repo update
         
-        helm install activemq bitnami/activemq \
-          --namespace my-namespace \
-          --create-namespace \
-          --set auth.enabled=true \
-          --set auth.user=admin \
-          --set auth.password=admin123 \
-          --wait
+        helm install activemq alfresco/activemq \
+          --namespace reporting \
+          --create-namespace
         
         for i in {1..10}; do
           echo attempt $i
