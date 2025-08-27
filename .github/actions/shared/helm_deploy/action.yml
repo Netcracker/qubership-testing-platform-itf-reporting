@@ -234,8 +234,9 @@ runs:
         echo "Get pods"
         kubectl get pods -n ${{ inputs.namespace }}
   
-        sleep 180
-        for c in $(kubectl get pod "$pod" -n my-namespace -o jsonpath="{.spec.containers[*].name}"); do
+        sleep 360
+        
+        for c in $(kubectl get pod "$pod" -n ${{inputs.namespace}} -o jsonpath="{.spec.containers[*].name}"); do
           echo "=== Logs for container: $c ==="
           kubectl logs "$pod" -n my-namespace -c "$c" --previous || echo "No previous logs for container: $c"
         done
