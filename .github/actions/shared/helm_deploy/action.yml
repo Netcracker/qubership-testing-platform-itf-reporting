@@ -227,11 +227,14 @@ runs:
             echo "📦 Logs from container: $c"
             kubectl logs "$pod" -c "$c" -n ${{inputs.namespace}}
             echo "---"
-            kubectl logs -n ${{inputs.namespace}} "$pod" --previous
             echo "---"
           done
         done
         
+        echo "Get previous"
+        pod=$(kubectl get pods -n namespace -l app.kubernetes.io/instance=atp-itf-reporting -o jsonpath="{.items[0].metadata.name}")
+        kubectl logs -n namespace "$pod" --previous
+  
         echo "Get pods"
         kubectl get pods -n ${{ inputs.namespace }}
 
