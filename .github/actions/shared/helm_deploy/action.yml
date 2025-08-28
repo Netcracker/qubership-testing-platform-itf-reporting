@@ -236,11 +236,14 @@ runs:
   
         sleep 180
         
+        echo "Get pods"
+        kubectl get pods -n ${{ inputs.namespace }}
+        
         pod=$(kubectl get pods -n ${{inputs.namespace}} -o name | grep -vE 'postgres|activemq' | head -n 1 | cut -d/ -f2)
   
         for c in $(kubectl get pod "$pod" -n ${{inputs.namespace}} -o jsonpath="{.spec.containers[*].name}"); do
           echo "=== Check liveness ==="
-          kubectl exec -it "$pod" -- /bin/bash
+          kubectl exec -it "$pod" -n ${{inputs.namespace}} -- /bin/bash
           curl -i http://localhost:8080/rest/deployment/liveness
           curl -i http://localhost:8080/rest/deployment/readiness
         done
