@@ -243,8 +243,8 @@ runs:
   
         for c in $(kubectl get pod "$pod" -n ${{inputs.namespace}} -o jsonpath="{.spec.containers[*].name}"); do
           echo "=== Check liveness ==="
-          kubectl exec -n ${{inputs.namespace}} "$pod" -- curl -i http://localhost:8080/rest/deployment/liveness
-          kubectl exec -n ${{inputs.namespace}} "$pod" -- curl -i http://localhost:8080/rest/deployment/readiness
+          kubectl exec -n reporting "$pod" -- curl -i http://localhost:8080/rest/deployment/liveness
+          kubectl exec -n reporting "$pod" -- curl -i http://localhost:8080/rest/deployment/readiness
         done
 
         sleep 200
