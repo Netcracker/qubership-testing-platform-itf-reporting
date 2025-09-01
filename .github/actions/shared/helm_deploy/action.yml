@@ -233,32 +233,7 @@ runs:
   
         echo "Get pods"
         kubectl get pods -n ${{ inputs.namespace }}
-  
-        sleep 180
         
-        echo "Get pods"
-        kubectl get pods -n ${{ inputs.namespace }}
-        
-        pod=$(kubectl get pods -n ${{inputs.namespace}} -o name | grep -vE 'postgres|activemq' | head -n 1 | cut -d/ -f2)
-  
-        for c in $(kubectl get pod "$pod" -n ${{inputs.namespace}} -o jsonpath="{.spec.containers[*].name}"); do
-          echo "=== Check liveness ==="
-          kubectl exec -n reporting "$pod" -- curl -i http://localhost:8080/rest/deployment/liveness
-          kubectl exec -n reporting "$pod" -- curl -i http://localhost:8080/rest/deployment/readiness
-        done
-
-        sleep 200
-        
-        pod=$(kubectl get pods -n ${{inputs.namespace}} -o name | grep -vE 'postgres|activemq' | head -n 1 | cut -d/ -f2)
-        
-        for c in $(kubectl get pod "$pod" -n ${{inputs.namespace}} -o jsonpath="{.spec.containers[*].name}"); do
-          echo "=== Logs for container: $c ==="
-          kubectl logs "$pod" -n ${{inputs.namespace}} -c "$c" --previous || echo "No previous logs for container: $c"
-          echo "=== Check liveness ==="
-          kubectl exec -it "$pod" -- /bin/bash
-          curl -i http://localhost:8080/rest/deployment/liveness
-          curl -i http://localhost:8080/rest/deployment/readiness
-        done
 
     - name: Get docker images
       shell: bash
