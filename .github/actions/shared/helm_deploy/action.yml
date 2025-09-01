@@ -140,33 +140,14 @@ runs:
           --set auth.password=postgrestest \
           --set auth.database=postgres
 
-        for i in {1..10}; do
-          echo "Attempt $i"
-          pod=$(kubectl get pods -n ${{inputs.namespace}} -o name | head -n 1 | cut -d/ -f2)
-          if [[ -z "$pod" ]]; then
-            echo "Pod not found. Retrying..."
-            sleep 10
-            continue
-          fi
-
-          echo "Checking pod: $pod"
-          STATUS=$(kubectl get pod "$pod" -n ${{inputs.namespace}} -o jsonpath="{.status.phase}")
-          READY=$(kubectl get pod "$pod" -n ${{inputs.namespace}} -o jsonpath="{.status.containerStatuses[0].ready}")
-          echo "Status: $STATUS"
-          echo "Ready: $READY"
-        
-          if [[ "$STATUS" == "Running" && "$READY" == "true" ]]; then
-            echo "Pod is running and ready."
-            break
-          fi
-          sleep 30
-        done
-        
-        if [[ "$STATUS" != "Running" || "$READY" != "true" ]]; then
-          echo "Pod did not become ready in time."
-          kubectl get pods -n ${{inputs.namespace}}
+        pod=$(kubectl get pods -n ${{inputs.namespace}} -o name | head -n 1 | cut -d/ -f2)
+        kubectl wait pod "$pod" -n ${{inputs.namespace}} \
+          --for=condition=Ready \
+          --timeout=120s || {
+          echo "❌ Pod $pod did not become ready in time"
           ERROR_FLAG=true
-        fi
+          exit 1
+        }
 
     - name: Install ActiveMQ
       shell: bash
