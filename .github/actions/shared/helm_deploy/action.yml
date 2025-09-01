@@ -143,7 +143,7 @@ runs:
         for i in {1..10}; do
           echo "Attempt $i"
           pod=$(kubectl get pods -n ${{inputs.namespace}} -o name | head -n 1 | cut -d/ -f2)
-          if [[ -z "$POD_NAME" ]]; then
+          if [[ -z "$pod" ]]; then
             echo "Pod not found. Retrying..."
             sleep 10
             continue
@@ -183,7 +183,7 @@ runs:
         for i in {1..10}; do
           echo "Attempt $i"
           pod=$(kubectl get pods -n ${{inputs.namespace}} -o name | grep -vE 'postgres' | head -n 1 | cut -d/ -f2)
-          if [[ -z "$POD_NAME" ]]; then
+          if [[ -z "$pod" ]]; then
             echo "Pod not found. Retrying..."
             sleep 10
             continue
@@ -229,6 +229,40 @@ runs:
          echo "No docker_tag provided. Using value from values-dev.yaml"
          helm ${{inputs.deploy_mode}} ${{inputs.service_name}} . -f $template_name -n ${{inputs.namespace}}
         fi 
+
+        for i in {1..10}; do
+          echo "Attempt $i"
+          pod=$(kubectl get pods -n ${{inputs.namespace}} -o name | grep -vE 'postgres|activemq' | head -n 1 | cut -d/ -f2)
+          if [[ -z "$pod" ]]; then
+            echo "Pod not found. Retrying..."
+            sleep 10
+            continue
+          fi
+
+          echo "Checking pod: $pod"
+        
+          STATUS=$(kubectl get pod "$pod" -n ${{inputs.namespace}} -o jsonpath="{.status.phase}")
+          READY=$(kubectl get pod "$pod" -n ${{inputs.namespace}} -o jsonpath="{.status.containerStatuses[0].ready}")
+          echo "Status: $STATUS"
+          echo "Ready: $READY"
+        
+          if [[ "$STATUS" == "Running" && "$READY" == "true" ]]; then
+            echo "Pod is running and ready."
+            break
+          fi
+        
+          sleep 30
+        done
+        
+        if [[ "$STATUS" != "Running" || "$READY" != "true" ]]; then
+          echo "Pod did not become ready in time."
+          kubectl get pods -n "$NAMESPACE"
+          ERROR_FLAG=true
+        fi
+        
+        
+        echo "Get pods"
+        kubectl get pods -n ${{ inputs.namespace }}
 
     - name: Get docker images
       shell: bash
