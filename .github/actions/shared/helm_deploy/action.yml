@@ -150,7 +150,6 @@ runs:
           fi
 
           echo "Checking pod: $pod"
-        
           STATUS=$(kubectl get pod "$pod" -n ${{inputs.namespace}} -o jsonpath="{.status.phase}")
           READY=$(kubectl get pod "$pod" -n ${{inputs.namespace}} -o jsonpath="{.status.containerStatuses[0].ready}")
           echo "Status: $STATUS"
@@ -160,13 +159,12 @@ runs:
             echo "Pod is running and ready."
             break
           fi
-        
           sleep 30
         done
         
         if [[ "$STATUS" != "Running" || "$READY" != "true" ]]; then
           echo "Pod did not become ready in time."
-          kubectl get pods -n "$NAMESPACE"
+          kubectl get pods -n ${{inputs.namespace}}
           ERROR_FLAG=true
         fi
 
@@ -190,7 +188,6 @@ runs:
           fi
 
           echo "Checking pod: $pod"
-          
           STATUS=$(kubectl get pod "$pod" -n ${{inputs.namespace}} -o jsonpath="{.status.phase}")
           READY=$(kubectl get pod "$pod" -n ${{inputs.namespace}} -o jsonpath="{.status.containerStatuses[0].ready}")
           echo "Status: $STATUS"
@@ -200,17 +197,15 @@ runs:
             echo "Pod is running and ready."
             break
           fi
-        
           sleep 30
         done
   
         if [[ "$STATUS" != "Running" || "$READY" != "true" ]]; then
           echo "Pod did not become ready in time."
-          kubectl get pods -n "$NAMESPACE"
+          kubectl get pods -n ${{inputs.namespace}}
           ERROR_FLAG=true
         fi
-  
-  
+
         echo "Get pods"
         kubectl get pods -n ${{ inputs.namespace }}
 
@@ -240,7 +235,6 @@ runs:
           fi
 
           echo "Checking pod: $pod"
-        
           STATUS=$(kubectl get pod "$pod" -n ${{inputs.namespace}} -o jsonpath="{.status.phase}")
           READY=$(kubectl get pod "$pod" -n ${{inputs.namespace}} -o jsonpath="{.status.containerStatuses[0].ready}")
           echo "Status: $STATUS"
@@ -250,16 +244,14 @@ runs:
             echo "Pod is running and ready."
             break
           fi
-        
           sleep 30
         done
         
         if [[ "$STATUS" != "Running" || "$READY" != "true" ]]; then
           echo "Pod did not become ready in time."
-          kubectl get pods -n "$NAMESPACE"
+          kubectl get pods -n ${{inputs.namespace}}
           ERROR_FLAG=true
         fi
-        
         
         echo "Get pods"
         kubectl get pods -n ${{ inputs.namespace }}
