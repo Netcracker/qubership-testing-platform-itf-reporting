@@ -1,0 +1,94 @@
+{
+  "name": "Localhost environment",
+  "values": [
+    {
+      "key": "base_url",
+      "value": "http://localhost:8080",
+      "enabled": true
+    },
+    {
+      "key": "created",
+      "value": "0",
+      "enabled": true
+    },
+    {
+      "key": "createdBy",
+      "value": "25a02396-1048-48f9-bf93-102d2fb7895e",
+      "enabled": true
+    },
+    {
+      "key": "description",
+      "value": "string",
+      "enabled": true
+    },
+    {
+      "key": "environments",
+      "value": "[]",
+      "enabled": true
+    },
+    {
+      "key": "id",
+      "value": "497f6eca-6276-4993-bfeb-53cbbbba6f08",
+      "enabled": true
+    },
+    {
+      "key": "idtool",
+      "value": "587f6eca-6276-4993-bfeb-67cbbbba6f07",
+      "enabled": true
+    },
+    {
+      "key": "modified",
+      "value": "0",
+      "enabled": true
+    },
+    {
+      "key": "modifiedBy",
+      "value": "07ff0787-1af5-4fc4-9832-7aaeaa962a5e",
+      "enabled": true
+    },
+    {
+      "key": "name",
+      "value": "test",
+      "enabled": true
+    },
+    {
+      "key": "nametool",
+      "value": "Main Group test",
+      "enabled": true
+    },
+    {
+      "key": "shortName",
+      "value": "test",
+      "enabled": true
+    },
+    {
+      "key": "graylogName",
+      "value": "string",
+      "enabled": true
+    },
+    {
+      "key": "projectId",
+      "value": "",
+      "enabled": true
+    },
+    {
+      "key": "systems",
+      "value": "[]",
+      "enabled": true
+    },
+    {
+      "key": "ssmSolutionAlias",
+      "value": "string",
+      "enabled": true
+    },
+    {
+      "key": "ssmInstanceAlias",
+      "value": "string",
+      "enabled": true
+    }
+  ],
+  "timestamp": 0,
+  "_postman_variable_scope": "environment",
+  "_postman_exported_at": "2025-07-28T00:00:00Z",
+  "_postman_exported_using": "Postman/10.x"
+}
