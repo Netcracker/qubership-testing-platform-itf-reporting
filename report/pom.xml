@@ -144,7 +144,7 @@
             <artifactId>atp-itf-core</artifactId>
             <exclusions>
                 <exclusion>
-                    <groupId>org.hibernate</groupId>
+                    <groupId>org.hibernate.validator</groupId>
                     <artifactId>hibernate-validator</artifactId>
                 </exclusion>
                 <exclusion>
@@ -160,36 +160,36 @@
                     <artifactId>javax.servlet-api</artifactId>
                 </exclusion>
                 <exclusion>
-                    <artifactId>hibernate-core</artifactId>
                     <groupId>org.hibernate</groupId>
+                    <artifactId>hibernate-core</artifactId>
                 </exclusion>
                 <exclusion>
-                    <artifactId>postgresql</artifactId>
                     <groupId>org.postgresql</groupId>
+                    <artifactId>postgresql</artifactId>
                 </exclusion>
                 <exclusion>
-                    <artifactId>nimbus-jose-jwt</artifactId>
                     <groupId>com.nimbusds</groupId>
+                    <artifactId>nimbus-jose-jwt</artifactId>
                 </exclusion>
                 <exclusion>
-                    <artifactId>spring-kafka</artifactId>
                     <groupId>org.springframework.kafka</groupId>
+                    <artifactId>spring-kafka</artifactId>
                 </exclusion>
                 <exclusion>
-                    <artifactId>undertow-core</artifactId>
                     <groupId>io.undertow</groupId>
+                    <artifactId>undertow-core</artifactId>
                 </exclusion>
                 <exclusion>
-                    <artifactId>okio</artifactId>
                     <groupId>com.squareup.okio</groupId>
+                    <artifactId>okio</artifactId>
                 </exclusion>
                 <exclusion>
-                    <artifactId>xnio-api</artifactId>
                     <groupId>org.jboss.xnio</groupId>
+                    <artifactId>xnio-api</artifactId>
                 </exclusion>
                 <exclusion>
-                    <artifactId>tomcat-embed-core</artifactId>
                     <groupId>org.apache.tomcat.embed</groupId>
+                    <artifactId>tomcat-embed-core</artifactId>
                 </exclusion>
             </exclusions>
         </dependency>
@@ -209,13 +209,11 @@
         <dependency>
             <groupId>io.undertow</groupId>
             <artifactId>undertow-core</artifactId>
-            <version>2.2.36.Final</version>
         </dependency>
-        
         <dependency>
             <artifactId>nimbus-jose-jwt</artifactId>
             <groupId>com.nimbusds</groupId>
-            <version>9.37.2</version>
+            <version>9.37.4</version>
         </dependency>
         <dependency>
             <artifactId>postgresql</artifactId>

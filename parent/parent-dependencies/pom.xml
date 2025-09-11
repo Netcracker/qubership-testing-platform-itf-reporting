@@ -14,10 +14,15 @@
         <org.springframework.version>5.3.21</org.springframework.version>
         <spring.cloud.version>2021.0.8</spring.cloud.version>
         <shedlock.spring>4.14.0</shedlock.spring>
-        <atp.itf.core.version>4.4.109</atp.itf.core.version>
         <activemq.version>5.15.16</activemq.version>
         <aspectj.version>1.8.10</aspectj.version>
-        <atp.multitenancy.version>0.0.11</atp.multitenancy.version>
+        <org.bouncycastle.version>1.70</org.bouncycastle.version>
+        <io.undertow.undertow-core.version>2.2.36.Final</io.undertow.undertow-core.version>
+        <tomcat.embed.version>9.0.108</tomcat.embed.version>
+
+        <atp.auth.version>1.2.73</atp.auth.version>
+        <atp.itf.core.version>4.4.112</atp.itf.core.version>
+        <atp.multitenancy.version>0.0.13</atp.multitenancy.version>
         <atp.common.version>0.0.43</atp.common.version>
     </properties>
 
@@ -26,7 +31,7 @@
             <dependency>
                 <groupId>org.qubership.atp.auth</groupId>
                 <artifactId>atp-auth-impl</artifactId>
-                <version>1.2.63</version>
+                <version>${atp.auth.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.qubership.atp</groupId>
@@ -34,7 +39,7 @@
                 <version>${atp.itf.core.version}</version>
                 <exclusions>
                     <exclusion>
-                        <groupId>org.hibernate</groupId>
+                        <groupId>org.hibernate.validator</groupId>
                         <artifactId>hibernate-validator</artifactId>
                     </exclusion>
                     <exclusion>
@@ -141,7 +146,7 @@
             <dependency>
                 <groupId>org.projectlombok</groupId>
                 <artifactId>lombok</artifactId>
-                <version>1.18.16</version>
+                <version>1.18.30</version>
             </dependency>
             <dependency>
                 <groupId>io.netty</groupId>
@@ -343,6 +348,46 @@
                 <groupId>org.qubership.atp.common</groupId>
                 <artifactId>qubership-atp-common-probes</artifactId>
                 <version>${atp.common.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.bouncycastle</groupId>
+                <artifactId>bcprov-jdk15on</artifactId>
+                <version>${org.bouncycastle.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.bouncycastle</groupId>
+                <artifactId>bcpkix-jdk15on</artifactId>
+                <version>${org.bouncycastle.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>io.undertow</groupId>
+                <artifactId>undertow-core</artifactId>
+                <version>${io.undertow.undertow-core.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>io.undertow</groupId>
+                <artifactId>undertow-servlet</artifactId>
+                <version>${io.undertow.undertow-core.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>io.undertow</groupId>
+                <artifactId>undertow-websockets-jsr</artifactId>
+                <version>${io.undertow.undertow-core.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.tomcat.embed</groupId>
+                <artifactId>tomcat-embed-core</artifactId>
+                <version>${tomcat.embed.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.tomcat.embed</groupId>
+                <artifactId>tomcat-embed-websocket</artifactId>
+                <version>${tomcat.embed.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.tomcat.embed</groupId>
+                <artifactId>tomcat-embed-el</artifactId>
+                <version>${tomcat.embed.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
