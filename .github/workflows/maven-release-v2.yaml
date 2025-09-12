@@ -165,7 +165,7 @@ jobs:
     steps:
       - name: "Docker Build"
         id: docker_build
-        uses: netcracker/qubership-workflow-hub/actions/docker-action@main
+        uses: netcracker/qubership-workflow-hub/actions/docker-action@v1.0.5
         with:
           ref: v${{ needs.deploy.outputs.release-version }}
           download-artifact: true
