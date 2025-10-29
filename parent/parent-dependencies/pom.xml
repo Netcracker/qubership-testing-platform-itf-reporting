@@ -20,8 +20,8 @@
         <io.undertow.undertow-core.version>2.2.36.Final</io.undertow.undertow-core.version>
         <tomcat.embed.version>9.0.108</tomcat.embed.version>
 
-        <atp.auth.version>1.2.73</atp.auth.version>
-        <atp.itf.core.version>4.4.112</atp.itf.core.version>
+        <atp.auth.version>1.2.75</atp.auth.version>
+        <atp.itf.core.version>4.4.113</atp.itf.core.version>
         <atp.multitenancy.version>0.0.13</atp.multitenancy.version>
         <atp.common.version>0.0.43</atp.common.version>
     </properties>
@@ -54,10 +54,6 @@
                         <groupId>javax.servlet</groupId>
                         <artifactId>javax.servlet-api</artifactId>
                     </exclusion>
-<!--                    <exclusion>-->
-<!--                        <artifactId>javers-spring-boot-starter-sql</artifactId>-->
-<!--                        <groupId>org.javers</groupId>-->
-<!--                    </exclusion>-->
                     <exclusion>
                         <artifactId>netty-handler</artifactId>
                         <groupId>io.netty</groupId>
