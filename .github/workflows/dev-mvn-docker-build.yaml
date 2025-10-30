@@ -25,7 +25,6 @@ on:
     types:
       [opened, reopened, synchronize]
 
-
 permissions:
   contents: read
   packages: write
@@ -53,8 +52,6 @@ jobs:
     steps:
       - name: Checkout Repository
         uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8 # v5.0.0
-        with:
-          persist-credentials: false
 
       - name: Metadata
         id: metadata
@@ -62,7 +59,7 @@ jobs:
         with:
           default-template: '{{ref-name}}-{{timestamp}}'
 
-      - name: Build and Publish Docker Image For Environments
+      - name: Build and Publish Main Docker Image
         uses: netcracker/qubership-workflow-hub/actions/docker-action@9319676b7d20b423a2e0943a0ac08da07d615998 #v1.0.6
         with:
           ref: ${{ github.ref }}
