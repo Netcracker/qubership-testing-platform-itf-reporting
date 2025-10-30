@@ -3,7 +3,7 @@
     <parent>
         <groupId>org.qubership.atp-itf-reporting</groupId>
         <artifactId>atp-itf-reporting</artifactId>
-        <version>4.4.115-SNAPSHOT</version>
+        <version>4.4.115</version>
         <relativePath>../../pom.xml</relativePath>
     </parent>
     <artifactId>parent-java</artifactId>
