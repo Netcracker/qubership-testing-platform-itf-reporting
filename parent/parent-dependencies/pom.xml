@@ -3,7 +3,7 @@
     <parent>
         <groupId>org.qubership.atp-itf-reporting</groupId>
         <artifactId>atp-itf-reporting</artifactId>
-        <version>4.4.113-SNAPSHOT</version>
+        <version>4.4.116-SNAPSHOT</version>
         <relativePath>../../pom.xml</relativePath>
     </parent>
     <artifactId>parent-dependencies</artifactId>
@@ -14,7 +14,7 @@
         <org.springframework.version>5.3.21</org.springframework.version>
         <spring.cloud.version>2021.0.8</spring.cloud.version>
         <shedlock.spring>4.14.0</shedlock.spring>
-        <atp.itf.core.version>4.4.109</atp.itf.core.version>
+        <atp.itf.core.version>4.4.108</atp.itf.core.version>
         <activemq.version>5.15.16</activemq.version>
         <aspectj.version>1.8.10</aspectj.version>
         <atp.multitenancy.version>0.0.11</atp.multitenancy.version>
@@ -23,11 +23,6 @@
 
     <dependencyManagement>
         <dependencies>
-            <dependency>
-                <groupId>org.qubership.atp.auth</groupId>
-                <artifactId>atp-auth-impl</artifactId>
-                <version>1.2.63</version>
-            </dependency>
             <dependency>
                 <groupId>org.qubership.atp</groupId>
                 <artifactId>atp-itf-core</artifactId>

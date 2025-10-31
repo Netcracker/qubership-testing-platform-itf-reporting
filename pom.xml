@@ -3,7 +3,7 @@
 
     <groupId>org.qubership.atp-itf-reporting</groupId>
     <artifactId>atp-itf-reporting</artifactId>
-    <version>4.4.113-SNAPSHOT</version>
+    <version>4.4.116-SNAPSHOT</version>
     <packaging>pom</packaging>
 
     <modules>
