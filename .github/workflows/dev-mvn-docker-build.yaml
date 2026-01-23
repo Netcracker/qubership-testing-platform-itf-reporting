@@ -98,13 +98,13 @@ jobs:
     needs: [ mvn-snapshot-deploy, load-docker-build-components ]
     steps:
       - name: Checkout Repository
-        uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8 # v6.0.1
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
         with:
           persist-credentials: false
 
       - name: Metadata
         id: metadata
-        uses: netcracker/qubership-workflow-hub/actions/metadata-action@c1a5c8c2d9c2a79f548134db1d095f36ee0f28e7 #v2.0.7
+        uses: netcracker/qubership-workflow-hub/actions/metadata-action@d53e0ff4ca97bd496974febd9aee460d1c5e9ba9 #v2.0.8
         with:
           default-template: '{{ref-name}}-{{timestamp}}'
 
@@ -122,7 +122,7 @@ jobs:
 
       - name: Build and Publish Docker Image
         id: docker_build
-        uses: netcracker/qubership-workflow-hub/actions/docker-action@c1a5c8c2d9c2a79f548134db1d095f36ee0f28e7 #v2.0.7
+        uses: netcracker/qubership-workflow-hub/actions/docker-action@d53e0ff4ca97bd496974febd9aee460d1c5e9ba9 #v2.0.8
         with:
           ref: ${{ github.ref }}
           dry-run: false
