@@ -17,7 +17,7 @@
         <maven.build.timestamp.format>yyyyMMdd-HHmmss</maven.build.timestamp.format>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <!--suppress UnresolvedMavenProperty -->
-        <application.version>Mockingbird build_number:${project.parent.version}_${timestamp}_rev_${buildNumber}</application.version>
+        <application.version>itf-reporting build_number:${project.parent.version}-${timestamp}</application.version>
     </properties>
 
     <build>
@@ -46,23 +46,6 @@
                     </execution>
                 </executions>
             </plugin>
-            <!--<plugin>
-                <groupId>org.codehaus.mojo</groupId>
-                <artifactId>buildnumber-maven-plugin</artifactId>
-                <version>1.4</version>
-                <executions>
-                    <execution>
-                        <phase>validate</phase>
-                        <goals>
-                            <goal>create</goal>
-                        </goals>
-                    </execution>
-                </executions>
-                <configuration>
-                    <doCheck>false</doCheck>
-                    <doUpdate>false</doUpdate>
-                </configuration>
-            </plugin> -->
             <!--This plugin is needed to run the project through the configuration idea.
             The plugin copies the filled "buildVersion.properties" file to the project root-->
             <plugin>
