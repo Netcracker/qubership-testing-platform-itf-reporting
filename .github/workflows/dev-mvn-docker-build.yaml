@@ -32,6 +32,7 @@ permissions:
 
 env:
   TAG_NAME: ${{ github.event.release.tag_name || github.ref }}
+  additional-mvn-args: ""
 
 jobs:
   mvn-snapshot-deploy:
