@@ -32,10 +32,11 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.UUID;
 
+import javax.annotation.Nonnull;
+
 import org.apache.commons.lang3.StringEscapeUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.time.DurationFormatUtils;
-import org.jetbrains.annotations.NotNull;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -106,7 +107,7 @@ public class MonitoringController {
     private final LoadingCache<String, String> urls = CacheBuilder.newBuilder()
             .build(new CacheLoader<String, String>() {
                 @Override
-                public String load(@NotNull String key) {
+                public String load(@Nonnull String key) {
                     return env.getProperty(key);
                 }
             });

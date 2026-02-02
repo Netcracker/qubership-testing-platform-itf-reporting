@@ -19,12 +19,12 @@ package org.qubership.automation.itf.integration.config.jms.listener;
 
 import java.util.Objects;
 
+import javax.annotation.Nonnull;
 import javax.jms.JMSException;
 import javax.jms.Message;
 import javax.jms.MessageListener;
 import javax.jms.TextMessage;
 
-import org.jetbrains.annotations.NotNull;
 import org.qubership.atp.integration.configuration.mdc.MdcUtils;
 import org.qubership.atp.multitenancy.core.header.CustomHeader;
 import org.qubership.automation.itf.core.util.mdc.MdcField;
@@ -88,7 +88,7 @@ public class ActiveMqJmsListener implements MessageListener {
         return JsonParser.parseString(((TextMessage) textMessage).getText()).getAsJsonObject();
     }
 
-    private void addObjectTypeProperty(@NotNull JsonObject json, String objectType) {
+    private void addObjectTypeProperty(@Nonnull JsonObject json, String objectType) {
         if (Objects.isNull(objectType) || objectType.isEmpty()) {
             throw new IllegalArgumentException("Object type is required but missed; message processing is terminated");
         }

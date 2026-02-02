@@ -14,15 +14,28 @@
         <org.springframework.version>5.3.21</org.springframework.version>
         <spring.cloud.version>2021.0.8</spring.cloud.version>
         <shedlock.spring>4.14.0</shedlock.spring>
-        <atp.itf.core.version>4.4.108</atp.itf.core.version>
         <activemq.version>5.15.16</activemq.version>
         <aspectj.version>1.8.10</aspectj.version>
-        <atp.multitenancy.version>0.0.11</atp.multitenancy.version>
-        <atp.common.version>0.0.43</atp.common.version>
+
+        <atp.itf.core.version>4.4.114</atp.itf.core.version>
+        <atp.auth.version>1.2.75</atp.auth.version>
+        <atp.multitenancy.version>0.0.13</atp.multitenancy.version>
+        <atp.common.version>0.0.47</atp.common.version>
+        <atp.integration.version>0.2.42</atp.integration.version>
     </properties>
 
     <dependencyManagement>
         <dependencies>
+            <dependency>
+                <groupId>org.qubership.atp.auth</groupId>
+                <artifactId>atp-auth-impl</artifactId>
+                <version>${atp.auth.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.qubership.atp</groupId>
+                <artifactId>atp-integration-spring-boot-starter</artifactId>
+                <version>${atp.integration.version}</version>
+            </dependency>
             <dependency>
                 <groupId>org.qubership.atp</groupId>
                 <artifactId>atp-itf-core</artifactId>
@@ -44,10 +57,6 @@
                         <groupId>javax.servlet</groupId>
                         <artifactId>javax.servlet-api</artifactId>
                     </exclusion>
-<!--                    <exclusion>-->
-<!--                        <artifactId>javers-spring-boot-starter-sql</artifactId>-->
-<!--                        <groupId>org.javers</groupId>-->
-<!--                    </exclusion>-->
                     <exclusion>
                         <artifactId>netty-handler</artifactId>
                         <groupId>io.netty</groupId>
@@ -337,6 +346,21 @@
             <dependency>
                 <groupId>org.qubership.atp.common</groupId>
                 <artifactId>qubership-atp-common-probes</artifactId>
+                <version>${atp.common.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.qubership.atp.common</groupId>
+                <artifactId>qubership-atp-common-logging</artifactId>
+                <version>${atp.common.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.qubership.atp.common</groupId>
+                <artifactId>qubership-atp-common-monitoring-undertow</artifactId>
+                <version>${atp.common.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.qubership.atp.common</groupId>
+                <artifactId>qubership-atp-common-utils</artifactId>
                 <version>${atp.common.version}</version>
             </dependency>
         </dependencies>
