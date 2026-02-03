@@ -14,9 +14,9 @@
     * Set parameters
     * Add the following parameters in VM options - click Modify Options and select "Add VM Options":
 
-**NOTE:** Configuration files [`application.properties`](../common/application.properties) and [`bootstrap.properties`](../common/bootstrap.properties)
+**NOTE:** Configuration files [`application.properties`](../reports-common/application.properties) and [`bootstrap.properties`](../reports-common/bootstrap.properties)
 
-**NOTE:** Configuration logging file [`logback-spring.xml`](../common/logback-spring.xml)
+**NOTE:** Configuration logging file [`logback-spring.xml`](../reports-common/logback-spring.xml)
 
 ```properties
 ##==============================Undertow===============================
