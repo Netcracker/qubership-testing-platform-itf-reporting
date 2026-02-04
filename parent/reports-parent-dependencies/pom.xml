@@ -14,8 +14,11 @@
         <org.springframework.version>5.3.21</org.springframework.version>
         <spring.cloud.version>2021.0.8</spring.cloud.version>
         <shedlock.spring>4.14.0</shedlock.spring>
-        <activemq.version>5.15.16</activemq.version>
+        <activemq.version>5.16.8</activemq.version>
         <aspectj.version>1.8.10</aspectj.version>
+        <ch.qos.logback.version>1.2.13</ch.qos.logback.version>
+        <jackson.version>2.15.0</jackson.version>
+        <undertow.version>2.2.38.Final</undertow.version>
 
         <atp.itf.core.version>4.4.114</atp.itf.core.version>
         <atp.auth.version>1.2.75</atp.auth.version>
@@ -30,11 +33,27 @@
                 <groupId>org.qubership.atp.auth</groupId>
                 <artifactId>atp-auth-impl</artifactId>
                 <version>${atp.auth.version}</version>
+                <exclusions>
+                    <exclusion>
+                        <groupId>org.springframework.kafka</groupId>
+                        <artifactId>spring-kafka</artifactId>
+                    </exclusion>
+                    <exclusion>
+                        <groupId>org.apache.tomcat.embed</groupId>
+                        <artifactId>tomcat-embed-el</artifactId>
+                    </exclusion>
+                </exclusions>
             </dependency>
             <dependency>
                 <groupId>org.qubership.atp</groupId>
                 <artifactId>atp-integration-spring-boot-starter</artifactId>
                 <version>${atp.integration.version}</version>
+                <exclusions>
+                    <exclusion>
+                        <groupId>org.apache.kafka</groupId>
+                        <artifactId>kafka-clients</artifactId>
+                    </exclusion>
+                </exclusions>
             </dependency>
             <dependency>
                 <groupId>org.qubership.atp</groupId>
@@ -64,6 +83,22 @@
                     <exclusion>
                         <artifactId>spring-kafka</artifactId>
                         <groupId>org.springframework.kafka</groupId>
+                    </exclusion>
+                    <exclusion>
+                        <groupId>org.springframework.data</groupId>
+                        <artifactId>spring-data-mongodb</artifactId>
+                    </exclusion>
+                    <exclusion>
+                        <groupId>org.mongodb</groupId>
+                        <artifactId>mongodb-driver-sync</artifactId>
+                    </exclusion>
+                    <exclusion>
+                        <groupId>org.mongodb</groupId>
+                        <artifactId>bson</artifactId>
+                    </exclusion>
+                    <exclusion>
+                        <groupId>org.apache.tomcat.embed</groupId>
+                        <artifactId>tomcat-embed-el</artifactId>
                     </exclusion>
                 </exclusions>
             </dependency>
@@ -164,8 +199,13 @@
             </dependency>
             <dependency>
                 <groupId>ch.qos.logback</groupId>
+                <artifactId>logback-core</artifactId>
+                <version>${ch.qos.logback.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>ch.qos.logback</groupId>
                 <artifactId>logback-classic</artifactId>
-                <version>1.2.3</version>
+                <version>${ch.qos.logback.version}</version>
             </dependency>
             <dependency>
                 <groupId>javax.inject</groupId>
@@ -192,7 +232,7 @@
             <dependency>
                 <groupId>org.apache.commons</groupId>
                 <artifactId>commons-lang3</artifactId>
-                <version>3.4</version>
+                <version>3.18.0</version>
             </dependency>
             <dependency>
                 <groupId>cglib</groupId>
@@ -233,13 +273,18 @@
             <!--Dependency for wiremock-->
             <dependency>
                 <groupId>com.fasterxml.jackson.core</groupId>
+                <artifactId>jackson-databind</artifactId>
+                <version>${jackson.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.fasterxml.jackson.core</groupId>
                 <artifactId>jackson-core</artifactId>
-                <version>2.13.5</version>
+                <version>${jackson.version}</version>
             </dependency>
             <dependency>
                 <groupId>com.fasterxml.jackson.core</groupId>
                 <artifactId>jackson-annotations</artifactId>
-                <version>2.13.5</version>
+                <version>${jackson.version}</version>
             </dependency>
             <dependency>
                 <groupId>commons-codec</groupId>
@@ -259,6 +304,11 @@
             <dependency>
                 <groupId>org.apache.activemq</groupId>
                 <artifactId>activemq-client</artifactId>
+                <version>${activemq.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.activemq</groupId>
+                <artifactId>activemq-openwire-legacy</artifactId>
                 <version>${activemq.version}</version>
             </dependency>
             <dependency>
@@ -362,6 +412,31 @@
                 <groupId>org.qubership.atp.common</groupId>
                 <artifactId>qubership-atp-common-utils</artifactId>
                 <version>${atp.common.version}</version>
+            </dependency>
+            <dependency> <!-- May be, dependencies to Kafka are to be removed at all -->
+                <groupId>org.apache.kafka</groupId>
+                <artifactId>kafka-clients</artifactId>
+                <version>3.9.1</version>
+            </dependency>
+            <dependency>
+                <groupId>commons-fileupload</groupId>
+                <artifactId>commons-fileupload</artifactId>
+                <version>1.6.0</version>
+            </dependency>
+            <dependency>
+                <groupId>io.undertow</groupId>
+                <artifactId>undertow-core</artifactId>
+                <version>${undertow.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>io.undertow</groupId>
+                <artifactId>undertow-servlet</artifactId>
+                <version>${undertow.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>io.undertow</groupId>
+                <artifactId>undertow-websockets-jsr</artifactId>
+                <version>${undertow.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
