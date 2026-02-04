@@ -37,26 +37,34 @@ if [ "${MULTI_TENANCY_HIBERNATE_ENABLED}" = "true" ]; then
     done
 
     env | grep -E '^ADDITIONAL_PG_.*_USERNAME=.*' | sort -u | while IFS='=' read -r _key _value; do
+    # shellcheck disable=SC2031
     echo "-Datp.multi-tenancy.additional.postgres.clusters[${i}].username=${_value}" >> "${_javaoptions}"
     # shellcheck disable=SC2030
+    # shellcheck disable=SC2031
     i=$((i+1))
     done
 
     env | grep -E '^ADDITIONAL_PG_.*_PASSWORD=.*' | sort -u | while IFS='=' read -r _key _value; do
+    # shellcheck disable=SC2031
     echo "-Datp.multi-tenancy.additional.postgres.clusters[${i}].password=${_value}" >> "${_javaoptions}"
     # shellcheck disable=SC2030
+    # shellcheck disable=SC2031
     i=$((i+1))
     done
 
     env | grep -E '^ADDITIONAL_PG_.*_DRIVER=.*' | sort -u | while IFS='=' read -r _key _value; do
+    # shellcheck disable=SC2031
     echo "-Datp.multi-tenancy.additional.postgres.clusters[${i}].driver-class=${_value}" >> "${_javaoptions}"
     # shellcheck disable=SC2030
+    # shellcheck disable=SC2031
     i=$((i+1))
     done
 
     env | grep -E '^ADDITIONAL_PG_.*_PROJECTS=.*' | sort -u | while IFS='=' read -r _key _value; do
+    # shellcheck disable=SC2031
     echo "-Datp.multi-tenancy.additional.postgres.clusters[${i}].projects=${_value}" >> "${_javaoptions}"
     # shellcheck disable=SC2030
+    # shellcheck disable=SC2031
     i=$((i+1))
     done
 
