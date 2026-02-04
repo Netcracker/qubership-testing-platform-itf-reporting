@@ -26,12 +26,12 @@ table[7]="mb_instance"
 table[8]="mb_message"
 table[9]="mb_tccontext"
 
-part_num=$(psql -d $POSTGRESQL_DATABASE -U $POSTGRESQL_USER -AXqtc "SET search_path TO $SCHEMA; select current_partition_number() % partitions_amount() + 1")
+part_num=$(psql -d "$POSTGRESQL_DATABASE" -U "$POSTGRESQL_USER" -AXqtc "SET search_path TO $SCHEMA; select current_partition_number() % partitions_amount() + 1")
 echo "part_num for clearing - ""$part_num"
 for table_name in "${table[@]}"
 do
     parent_table_name=$table_name
     part_table_name="$table_name"_part"$part_num"
     echo "Processing tables: Table - $parent_table_name, Partition - $part_table_name"
-    psql -d $POSTGRESQL_DATABASE -U "$POSTGRESQL_USER" -AXqt -v schema="$SCHEMA" -v parent_table_name="$table_name" -v part_table_name="$table_name"_part"$part_num" -v part_num="$part_num" -f recreate_partition.sql
+    psql -d "$POSTGRESQL_DATABASE" -U "$POSTGRESQL_USER" -AXqt -v schema="$SCHEMA" -v parent_table_name="$table_name" -v part_table_name="$table_name"_part"$part_num" -v part_num="$part_num" -f recreate_partition.sql
 done
