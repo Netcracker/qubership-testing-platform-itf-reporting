@@ -75,18 +75,6 @@
                         <groupId>org.springframework.kafka</groupId>
                     </exclusion>
                     <exclusion>
-                        <groupId>org.springframework.data</groupId>
-                        <artifactId>spring-data-mongodb</artifactId>
-                    </exclusion>
-                    <exclusion>
-                        <groupId>org.mongodb</groupId>
-                        <artifactId>mongodb-driver-sync</artifactId>
-                    </exclusion>
-                    <exclusion>
-                        <groupId>org.mongodb</groupId>
-                        <artifactId>bson</artifactId>
-                    </exclusion>
-                    <exclusion>
                         <groupId>org.apache.tomcat.embed</groupId>
                         <artifactId>tomcat-embed-el</artifactId>
                     </exclusion>

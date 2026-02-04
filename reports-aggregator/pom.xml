@@ -104,12 +104,6 @@
         <dependency>
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-starter-sleuth</artifactId>
-            <exclusions>
-                <exclusion>
-                    <groupId>io.zipkin.brave</groupId>
-                    <artifactId>brave-instrumentation-mongodb</artifactId>
-                </exclusion>
-            </exclusions>
         </dependency>
         <dependency>
             <groupId>org.qubership.atp.common</groupId>
@@ -206,6 +200,17 @@
         </dependency>
 
         <!--For Spring context end-->
+
+        <!--For Kafka Spring context start-->
+        <dependency>
+            <groupId>org.apache.kafka</groupId>
+            <artifactId>kafka-clients</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.kafka</groupId>
+            <artifactId>spring-kafka</artifactId>
+        </dependency>
+        <!--For Kafka Spring context end-->
 
         <!--For shedlock-spring start-->
         <dependency>
