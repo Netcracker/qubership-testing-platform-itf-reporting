@@ -28,7 +28,7 @@ server.compression.mime-types=${UNDERTOW_COMPRESSION_MIMETYPE}
 server.undertow.threads.io=${SERVER_UNDERTOW_IO_THREADS}
 server.undertow.threads.worker=${SERVER_UNDERTOW_WORKER_THREADS}
 jboss.threads.eqe.statistics=${JBOSS_THREADS_EQE_STATISTICS}
-##=============================DateBase Setting===============================
+##=============================Database Settings==============================
 spring.datasource.url=${JDBC_URL}
 spring.datasource.username=${ITF_REPORTING_DB_USER}
 spring.datasource.password=${ITF_REPORTING_DB_PASSWORD}
