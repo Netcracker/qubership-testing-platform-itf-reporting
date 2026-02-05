@@ -52,11 +52,12 @@ public class ContextService {
         ScheduledExecutorService service = Executors.newSingleThreadScheduledExecutor();
         service.scheduleWithFixedDelay(() -> {
             try {
+                log.info("Refreshing of current partition numbers from reporting database(s)...");
                 refreshPartitionNumbers(getCurrentPartitionNumbers());
             } catch (Throwable t) {
                 log.error("Error while refreshing of current partition numbers from reporting database(s)", t);
             }
-        }, 5, 3600, TimeUnit.SECONDS);
+        }, 20, 3600, TimeUnit.SECONDS);
         return service;
     }
 
