@@ -51,11 +51,13 @@ public class ContextService {
     private ScheduledExecutorService initRefreshPartitionsService() {
         ScheduledExecutorService service = Executors.newSingleThreadScheduledExecutor();
         service.scheduleWithFixedDelay(() -> {
+            String title = "Refresh of current partition numbers from reporting database(s)";
             try {
-                log.info("Refreshing of current partition numbers from reporting database(s)...");
+                log.info("{} is started.", title);
                 refreshPartitionNumbers(getCurrentPartitionNumbers());
+                log.info("{} is completed.", title);
             } catch (Throwable t) {
-                log.error("Error while refreshing of current partition numbers from reporting database(s)", t);
+                log.error("{}: failed with exception(s)", title, t);
             }
         }, 20, 3600, TimeUnit.SECONDS);
         return service;
