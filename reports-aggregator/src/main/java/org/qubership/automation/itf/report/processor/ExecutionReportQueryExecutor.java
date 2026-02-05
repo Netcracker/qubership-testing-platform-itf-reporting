@@ -265,7 +265,7 @@ public class ExecutionReportQueryExecutor extends AbstractQueryExecutor implemen
     }
 
     /**
-     * Defense on PostgreSQL error:
+     * Defense on PostgresSQL error:
      *  org.postgresql.util.PSQLException: ERROR: invalid byte sequence for encoding "UTF8": 0x00.
      *
      * @param source - source string,
@@ -290,11 +290,12 @@ public class ExecutionReportQueryExecutor extends AbstractQueryExecutor implemen
     }
 
     private boolean isMultiple(final JsonObject jsonObject) {
-        if (jsonObject.has("multiple")) {
+        final String multiple = "multiple";
+        if (jsonObject.has(multiple)) {
             try {
-                return jsonObject.get("multiple").getAsBoolean();
+                return jsonObject.get(multiple).getAsBoolean();
             } catch (Exception e) {
-                log.error("Error while getting 'multiple' property value from json", e);
+                log.error("Error while getting '{}' property value from json", multiple, e);
             }
         }
         return false;
