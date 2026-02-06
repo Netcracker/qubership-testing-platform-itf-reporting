@@ -74,4 +74,4 @@ if [ "${MULTI_TENANCY_HIBERNATE_ENABLED}" = "true" ]; then
     done <"${_javaoptions}"
 fi
 
-/usr/bin/java -Xverify:none -Xms128m -XX:MaxRAM="${MAX_RAM_SIZE:-3000m}" -XX:MaxRAMPercentage=75.0 "${JAVA_OPTIONS}" -cp "./:./lib/*" org.qubership.automation.itf.Main
+/usr/bin/java -Xverify:none -Xms128m -XX:MaxRAM="${MAX_RAM_SIZE:-3000m}" -Dhibernate.jdbc.lob.non_contextual_creation=true -XX:MaxRAMPercentage=75.0 "${JAVA_OPTIONS}" -cp "./:./lib/*" org.qubership.automation.itf.Main
