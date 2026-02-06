@@ -1,24 +1,24 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>org.qubership.atp-itf-reporting</groupId>
-    <artifactId>atp-itf-reporting</artifactId>
+    <groupId>org.qubership.mockingbird</groupId>
+    <artifactId>reports</artifactId>
     <version>4.4.117-SNAPSHOT</version>
     <packaging>pom</packaging>
 
     <modules>
         <!--modules for building process-->
-        <module>parent/parent-dependencies</module>
-        <module>parent/parent-java</module>
+        <module>parent/reports-parent-dependencies</module>
+        <module>parent/reports-parent-java</module>
 
         <!--Module with *.yaml specifications for pact testing-->
-        <module>atp-itf-reporting-rest-openapi-specifications</module>
+        <module>reports-rest-openapi-specifications</module>
 
         <!--The module is aggregator-->
-        <module>report</module>
+        <module>reports-aggregator</module>
 
         <!--pom for compile ready project and some local resources-->
-        <module>common</module>
+        <module>reports-common</module>
     </modules>
 
     <name>${project.groupId}:${project.artifactId}</name>

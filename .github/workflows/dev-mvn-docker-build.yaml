@@ -32,6 +32,7 @@ permissions:
 
 env:
   TAG_NAME: ${{ github.event.release.tag_name || github.ref }}
+  additional-mvn-args: ""
 
 jobs:
   mvn-snapshot-deploy:
@@ -147,7 +148,7 @@ jobs:
       repository_name: 'qubership-testing-platform-itf-reporting'
       service_name: 'atp-itf-reporting'
       namespace: 'reporting'
-      pipeline_branch: 'main'
+      pipeline_branch: ${{ github.ref }}
       postgres: enable
       activemq: enable
       enable_test: enable

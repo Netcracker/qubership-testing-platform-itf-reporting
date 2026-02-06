@@ -1,4 +1,4 @@
-FROM bellsoft/liberica-openjdk-alpine-musl:8u472
+FROM bellsoft/liberica-openjdk-alpine-musl:8u482
 
 LABEL maintainer="opensourcegroup@netcracker.com"
 LABEL atp.service="atp-itf-reporting"
@@ -10,33 +10,36 @@ ENV JDBC_URL=jdbc:postgresql://kube01nd04cn:5433/itf
 
 WORKDIR $HOME_EX
 
-RUN echo "https://dl-cdn.alpinelinux.org/alpine/v3.21/community/" >/etc/apk/repositories && \
-    echo "https://dl-cdn.alpinelinux.org/alpine/v3.21/main/" >>/etc/apk/repositories && \
+RUN echo "https://dl-cdn.alpinelinux.org/alpine/v3.23/community/" >/etc/apk/repositories && \
+    echo "https://dl-cdn.alpinelinux.org/alpine/v3.23/main/" >>/etc/apk/repositories && \
     apk add --update --no-cache --no-check-certificate \
-        bash=5.2.37-r0 \
-        curl=8.14.1-r2 \
-        font-dejavu=2.37-r5 \
-        fontconfig=2.15.0-r1 \
+        bash=5.3.3-r1 \
+        curl=8.17.0-r1 \
+        font-dejavu=2.37-r6 \
+        fontconfig=2.17.1-r0 \
         gcompat=1.1.0-r4 \
-        gettext=0.22.5-r0 \
-        git=2.47.3-r0 \
-        htop=3.3.0-r0 \
-        jq=1.7.1-r0 \
-        libcrypto3=3.3.6-r0 \
-        libssl3=3.3.6-r0 \
+        gettext=0.24.1-r1 \
+        git=2.52.0-r0 \
+        htop=3.4.1-r1 \
+        jq=1.8.1-r0 \
+        libpng=1.6.54-r0 \
+        libcrypto3=3.5.5-r0 \
+        libssl3=3.5.5-r0 \
         net-tools=2.10-r3 \
         nss_wrapper=1.1.12-r1 \
-        procps-ng=4.0.4-r2 \
-        sysstat=12.7.6-r0 \
-        tcpdump=4.99.5-r0 \
-        wget=1.25.0-r0 \
+        pcre2=10.47-r0 \
+        procps-ng=4.0.5-r0 \
+        sops=3.11.0-r3 \
+        sysstat=12.7.8-r0 \
+        tcpdump=4.99.5-r1 \
+        wget=1.25.0-r2 \
+        xz-libs=5.8.2-r0 \
         zip=3.0-r13 && \
       rm -rf /var/cache/apk/*
 
 COPY deployments/install deployments/install
 COPY deployments/atp-common-scripts deployments/atp-common-scripts
-COPY build-context/common/target/ /tmp/
-
+COPY build-context/reports-common/target/ /tmp/
 
 RUN mkdir -p dist/atp deployments/update && \
     cp -r deployments/install/* deployments/update/ && \
@@ -49,7 +52,7 @@ RUN adduser -D -H -h /atp -s /bin/bash -u 1007 atp && \
     chmod a+x /usr/bin/java
 
 RUN unzip /tmp/*.zip -d $HOME_EX/ && \
-    rm -rf $HOME_EX/lib/report-*-sources.jar && \
+    rm -rf $HOME_EX/lib/reports-aggregator-*-sources.jar && \
     cp -r dist/atp /atp/ && chmod -R 775 /atp/ && \
     chown -R atp:root $HOME_EX/ && \
     find $HOME_EX -type f -name '*.sh' -exec chmod a+x {} + && \

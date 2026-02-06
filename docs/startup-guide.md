@@ -14,9 +14,9 @@
     * Set parameters
     * Add the following parameters in VM options - click Modify Options and select "Add VM Options":
 
-**NOTE:** Configuration files [`application.properties`](../common/application.properties) and [`bootstrap.properties`](../common/bootstrap.properties)
+**NOTE:** Configuration files [`application.properties`](../reports-common/application.properties) and [`bootstrap.properties`](../reports-common/bootstrap.properties)
 
-**NOTE:** Configuration logging file [`logback-spring.xml`](../common/logback-spring.xml)
+**NOTE:** Configuration logging file [`logback-spring.xml`](../reports-common/logback-spring.xml)
 
 ```properties
 ##==============================Undertow===============================
@@ -28,7 +28,7 @@ server.compression.mime-types=${UNDERTOW_COMPRESSION_MIMETYPE}
 server.undertow.threads.io=${SERVER_UNDERTOW_IO_THREADS}
 server.undertow.threads.worker=${SERVER_UNDERTOW_WORKER_THREADS}
 jboss.threads.eqe.statistics=${JBOSS_THREADS_EQE_STATISTICS}
-##=============================DateBase Setting===============================
+##=============================Database Settings==============================
 spring.datasource.url=${JDBC_URL}
 spring.datasource.username=${ITF_REPORTING_DB_USER}
 spring.datasource.password=${ITF_REPORTING_DB_PASSWORD}
