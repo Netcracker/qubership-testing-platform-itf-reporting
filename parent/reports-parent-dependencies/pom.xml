@@ -3,7 +3,7 @@
     <parent>
         <groupId>org.qubership.mockingbird</groupId>
         <artifactId>reports</artifactId>
-        <version>4.4.117-SNAPSHOT</version>
+        <version>4.4.117</version>
         <relativePath>../../pom.xml</relativePath>
     </parent>
     <artifactId>reports-parent-dependencies</artifactId>
