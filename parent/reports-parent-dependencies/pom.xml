@@ -18,7 +18,7 @@
         <aspectj.version>1.8.10</aspectj.version>
         <ch.qos.logback.version>1.2.13</ch.qos.logback.version>
         <jackson.version>2.15.0</jackson.version>
-        <undertow.version>2.2.38.Final</undertow.version>
+        <undertow.version>2.2.39.Final</undertow.version>
         <io.netty.version>4.1.125.Final</io.netty.version>
 
         <atp.itf.core.version>4.4.114</atp.itf.core.version>
@@ -490,6 +490,11 @@
                 <groupId>at.yawk.lz4</groupId>
                 <artifactId>lz4-java</artifactId>
                 <version>1.10.1</version>
+            </dependency>
+            <dependency>
+                <groupId>org.liquibase</groupId>
+                <artifactId>liquibase-core</artifactId>
+                <version>4.22.0</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
