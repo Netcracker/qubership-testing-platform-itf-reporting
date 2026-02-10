@@ -87,6 +87,10 @@
                         <groupId>com.hazelcast</groupId>
                         <artifactId>hazelcast</artifactId>
                     </exclusion>
+                    <exclusion>
+                        <groupId>com.hazelcast</groupId>
+                        <artifactId>hazelcast-all</artifactId>
+                    </exclusion>
                 </exclusions>
             </dependency>
             <!--Spring Configuration - Start-->
@@ -483,8 +487,8 @@
             </dependency>
             <dependency>
                 <groupId>com.hazelcast</groupId>
-                <artifactId>hazelcast-all</artifactId>
-                <version>4.2.8</version>
+                <artifactId>hazelcast</artifactId>
+                <version>5.2.5</version>
             </dependency>
             <dependency>
                 <groupId>at.yawk.lz4</groupId>
