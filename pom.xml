@@ -41,7 +41,7 @@
     <scm>
         <connection>scm:git:https//github.com/Netcracker/qubership-testing-platform-itf-reporting.git</connection>
         <developerConnection>scm:git:https://github.com/Netcracker/qubership-testing-platform-itf-reporting.git</developerConnection>
-        <url>scm:git:https://github.com/Netcracker/qubership-testing-platform-itf-reporting/tree/main</url>
+        <url>scm:git:https://github.com/Netcracker/qubership-testing-platform-itf-reporting.git</url>
       <tag>HEAD</tag>
   </scm>
 
