@@ -58,9 +58,9 @@ public class TreeNodeBuilderTest {
                 "outgoing message", "send", "", 6, "PASSED", "01.069");
         objects.add(reportObject7);
         TreeNode treeNode = new TreeNodeBuilder(new BigInteger("60420003267")).findAndAddChildNode(objects, 2).build();
-        Assert.notEmpty(treeNode.getNodes());
+        Assert.notEmpty(treeNode.getNodes(), "nodes must not be empty");
         assertEquals("60420003271", treeNode.getNodes().stream().findFirst().get().getId());
-        Assert.notEmpty(treeNode.getNodes().stream().findFirst().get().getNodes());
+        Assert.notEmpty(treeNode.getNodes().stream().findFirst().get().getNodes(), "nodes must not be empty");
         assertEquals("60420003272", treeNode.getNodes().stream().findFirst().get().getNodes().stream().findFirst().get().getId());
         assertEquals(0, treeNode.getNodes().stream().findFirst().get().getNodes().stream().findFirst().get().getNodes().size());
     }

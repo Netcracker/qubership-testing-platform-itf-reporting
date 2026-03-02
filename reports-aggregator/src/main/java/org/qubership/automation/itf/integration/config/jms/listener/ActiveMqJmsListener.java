@@ -19,7 +19,7 @@ package org.qubership.automation.itf.integration.config.jms.listener;
 
 import java.util.Objects;
 
-import javax.annotation.Nonnull;
+import jakarta.annotation.Nonnull;
 import javax.jms.JMSException;
 import javax.jms.Message;
 import javax.jms.MessageListener;
