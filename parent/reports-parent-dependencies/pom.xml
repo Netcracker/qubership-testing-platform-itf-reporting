@@ -10,21 +10,21 @@
     <name>reports-parent-dependencies</name>
     <packaging>pom</packaging>
     <properties>
-        <spring.boot.version>2.7.18</spring.boot.version>
-        <org.springframework.version>5.3.21</org.springframework.version>
-        <spring.cloud.version>2021.0.8</spring.cloud.version>
+        <java.version>21</java.version>
+        <spring.boot.version>3.3.11</spring.boot.version>
+        <org.springframework.version>6.1.14</org.springframework.version>
+        <spring.cloud.version>2023.0.3</spring.cloud.version>
         <shedlock.spring>4.14.0</shedlock.spring>
-        <activemq.version>5.16.8</activemq.version>
+        <activemq.version>6.1.6</activemq.version>
         <aspectj.version>1.8.10</aspectj.version>
-        <ch.qos.logback.version>1.2.13</ch.qos.logback.version>
         <jackson.version>2.15.0</jackson.version>
-        <undertow.version>2.2.38.Final</undertow.version>
+<!--        <undertow.version>2.3.18.Final</undertow.version>-->
 
-        <atp.itf.core.version>4.4.114</atp.itf.core.version>
-        <atp.auth.version>1.2.75</atp.auth.version>
-        <atp.multitenancy.version>0.0.13</atp.multitenancy.version>
-        <atp.common.version>0.0.47</atp.common.version>
-        <atp.integration.version>0.2.42</atp.integration.version>
+        <atp.itf.core.version>5.0.1-SNAPSHOT</atp.itf.core.version>
+        <atp.auth.version>2.0.2-SNAPSHOT</atp.auth.version>
+        <atp.multitenancy.version>1.0.0-SNAPSHOT</atp.multitenancy.version>
+        <atp.common.version>1.0.0-SNAPSHOT</atp.common.version>
+        <atp.integration.version>1.0.0-SNAPSHOT</atp.integration.version>
     </properties>
 
     <dependencyManagement>
@@ -102,7 +102,7 @@
             <dependency>
                 <groupId>org.springframework.security</groupId>
                 <artifactId>spring-security-web</artifactId>
-                <version>5.7.13</version>
+                <version>6.3.9</version>
             </dependency>
 
             <dependency>
@@ -112,11 +112,11 @@
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
-            <dependency>
-                <groupId>javax.validation</groupId>
-                <artifactId>validation-api</artifactId>
-                <version>2.0.1.Final</version>
-            </dependency>
+<!--            <dependency>-->
+<!--                <groupId>javax.validation</groupId>-->
+<!--                <artifactId>validation-api</artifactId>-->
+<!--                <version>2.0.1.Final</version>-->
+<!--            </dependency>-->
 
             <!--Spring Configuration - End-->
             <dependency>
@@ -129,11 +129,11 @@
                 <artifactId>shedlock-provider-jdbc-template</artifactId>
                 <version>${shedlock.spring}</version>
             </dependency>
-            <dependency>
-                <groupId>org.antlr</groupId>
-                <artifactId>antlr4-runtime</artifactId>
-                <version>4.5.3</version>
-            </dependency>
+<!--            <dependency>-->
+<!--                <groupId>org.antlr</groupId>-->
+<!--                <artifactId>antlr4-runtime</artifactId>-->
+<!--                <version>4.5.3</version>-->
+<!--            </dependency>-->
             <dependency>
                 <groupId>org.apache.geronimo.specs</groupId>
                 <artifactId>geronimo-jms_2.0_spec</artifactId>
@@ -149,20 +149,20 @@
                 <artifactId>xstream</artifactId>
                 <version>1.4.21</version>
             </dependency>
+<!--            <dependency>-->
+<!--                <groupId>javax.servlet</groupId>-->
+<!--                <artifactId>jstl</artifactId>-->
+<!--                <version>1.2</version>-->
+<!--            </dependency>-->
             <dependency>
-                <groupId>javax.servlet</groupId>
-                <artifactId>jstl</artifactId>
-                <version>1.2</version>
-            </dependency>
-            <dependency>
-                <groupId>org.hibernate</groupId>
+                <groupId>org.hibernate.orm</groupId>
                 <artifactId>hibernate-core</artifactId>
-                <version>5.3.4.Final</version>
+                <version>6.6.42.Final</version>
             </dependency>
             <dependency>
                 <groupId>org.projectlombok</groupId>
                 <artifactId>lombok</artifactId>
-                <version>1.18.16</version>
+                <version>1.18.32</version>
             </dependency>
             <dependency>
                 <groupId>io.netty</groupId>
@@ -179,20 +179,20 @@
                 <artifactId>guava</artifactId>
                 <version>20.0</version>
             </dependency>
+<!--            <dependency>-->
+<!--                <groupId>ch.qos.logback</groupId>-->
+<!--                <artifactId>logback-core</artifactId>-->
+<!--                <version>${ch.qos.logback.version}</version>-->
+<!--            </dependency>-->
+<!--            <dependency>-->
+<!--                <groupId>ch.qos.logback</groupId>-->
+<!--                <artifactId>logback-classic</artifactId>-->
+<!--                <version>${ch.qos.logback.version}</version>-->
+<!--            </dependency>-->
             <dependency>
-                <groupId>ch.qos.logback</groupId>
-                <artifactId>logback-core</artifactId>
-                <version>${ch.qos.logback.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>ch.qos.logback</groupId>
-                <artifactId>logback-classic</artifactId>
-                <version>${ch.qos.logback.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>javax.inject</groupId>
-                <artifactId>javax.inject</artifactId>
-                <version>1</version>
+                <groupId>jakarta.inject</groupId>
+                <artifactId>jakarta.inject-api</artifactId>
+                <version>2.0.1</version>
             </dependency>
             <dependency>
                 <groupId>org.testng</groupId>
@@ -326,11 +326,11 @@
                 <artifactId>springfox-swagger-ui</artifactId>
                 <version>2.10.0</version>
             </dependency>
-            <dependency>
-                <groupId>javax.json.bind</groupId>
-                <artifactId>javax.json.bind-api</artifactId>
-                <version>1.0</version>
-            </dependency>
+<!--            <dependency>-->
+<!--                <groupId>javax.json.bind</groupId>-->
+<!--                <artifactId>javax.json.bind-api</artifactId>-->
+<!--                <version>1.0</version>-->
+<!--            </dependency>-->
             <dependency>
                 <groupId>org.qubership.atp.multitenancy</groupId>
                 <artifactId>atp-multitenancy-hibernate</artifactId>
@@ -405,25 +405,25 @@
                 <artifactId>commons-fileupload</artifactId>
                 <version>1.6.0</version>
             </dependency>
-            <dependency>
-                <groupId>io.undertow</groupId>
-                <artifactId>undertow-core</artifactId>
-                <version>${undertow.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>io.undertow</groupId>
-                <artifactId>undertow-servlet</artifactId>
-                <version>${undertow.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>io.undertow</groupId>
-                <artifactId>undertow-websockets-jsr</artifactId>
-                <version>${undertow.version}</version>
-            </dependency>
+<!--            <dependency>-->
+<!--                <groupId>io.undertow</groupId>-->
+<!--                <artifactId>undertow-core</artifactId>-->
+<!--                <version>${undertow.version}</version>-->
+<!--            </dependency>-->
+<!--            <dependency>-->
+<!--                <groupId>io.undertow</groupId>-->
+<!--                <artifactId>undertow-servlet</artifactId>-->
+<!--                <version>${undertow.version}</version>-->
+<!--            </dependency>-->
+<!--            <dependency>-->
+<!--                <groupId>io.undertow</groupId>-->
+<!--                <artifactId>undertow-websockets-jsr</artifactId>-->
+<!--                <version>${undertow.version}</version>-->
+<!--            </dependency>-->
             <dependency>
                 <groupId>org.springframework.kafka</groupId>
                 <artifactId>spring-kafka</artifactId>
-                <version>2.9.11</version>
+                <version>3.2.4</version>
             </dependency>
             <dependency>
                 <groupId>org.yaml</groupId>
