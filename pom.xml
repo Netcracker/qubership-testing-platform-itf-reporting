@@ -24,6 +24,7 @@
     <name>${project.groupId}:${project.artifactId}</name>
     <description>Qubership Testing Platform ITF Reporting Service</description>
     <url>https://github.com/Netcracker/qubership-testing-platform-itf-reporting</url>
+    
     <licenses>
         <license>
             <name>Apache License, Version 2.0</name>
