@@ -129,11 +129,11 @@
                 <artifactId>shedlock-provider-jdbc-template</artifactId>
                 <version>${shedlock.spring}</version>
             </dependency>
-<!--            <dependency>-->
-<!--                <groupId>org.antlr</groupId>-->
-<!--                <artifactId>antlr4-runtime</artifactId>-->
-<!--                <version>4.5.3</version>-->
-<!--            </dependency>-->
+            <dependency>
+                <groupId>org.antlr</groupId>
+                <artifactId>antlr4-runtime</artifactId>
+                <version>4.5.3</version>
+            </dependency>
             <dependency>
                 <groupId>org.apache.geronimo.specs</groupId>
                 <artifactId>geronimo-jms_2.0_spec</artifactId>
