@@ -3,7 +3,7 @@
 
     <groupId>org.qubership.mockingbird</groupId>
     <artifactId>reports</artifactId>
-    <version>4.4.119-SNAPSHOT</version>
+    <version>4.4.120-SNAPSHOT</version>
     <packaging>pom</packaging>
 
     <modules>

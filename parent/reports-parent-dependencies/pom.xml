@@ -3,7 +3,7 @@
     <parent>
         <groupId>org.qubership.mockingbird</groupId>
         <artifactId>reports</artifactId>
-        <version>4.4.119-SNAPSHOT</version>
+        <version>4.4.120-SNAPSHOT</version>
         <relativePath>../../pom.xml</relativePath>
     </parent>
     <artifactId>reports-parent-dependencies</artifactId>
@@ -14,11 +14,10 @@
         <spring.boot.version>3.3.11</spring.boot.version>
         <org.springframework.version>6.1.14</org.springframework.version>
         <spring.cloud.version>2023.0.3</spring.cloud.version>
-        <shedlock.spring>4.14.0</shedlock.spring>
+        <shedlock.spring>5.16.0</shedlock.spring>
         <activemq.version>6.1.6</activemq.version>
         <aspectj.version>1.8.10</aspectj.version>
         <jackson.version>2.15.0</jackson.version>
-<!--        <undertow.version>2.3.18.Final</undertow.version>-->
 
         <atp.itf.core.version>5.0.1-SNAPSHOT</atp.itf.core.version>
         <atp.auth.version>2.0.2-SNAPSHOT</atp.auth.version>
@@ -129,11 +128,11 @@
                 <artifactId>shedlock-provider-jdbc-template</artifactId>
                 <version>${shedlock.spring}</version>
             </dependency>
-            <dependency>
-                <groupId>org.antlr</groupId>
-                <artifactId>antlr4-runtime</artifactId>
-                <version>4.5.3</version>
-            </dependency>
+<!--            <dependency>-->
+<!--                <groupId>org.antlr</groupId>-->
+<!--                <artifactId>antlr4-runtime</artifactId>-->
+<!--                <version>4.5.3</version>-->
+<!--            </dependency>-->
             <dependency>
                 <groupId>org.apache.geronimo.specs</groupId>
                 <artifactId>geronimo-jms_2.0_spec</artifactId>
