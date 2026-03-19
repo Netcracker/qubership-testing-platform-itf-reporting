@@ -20,7 +20,7 @@ ATP_INTERNAL_GATEWAY_URL: "http://atp-internal-gateway:8080"
 ATP_INTERNAL_GATEWAY_ENABLED: "false"
 ATP_INTERNAL_GATEWAY_NAME: "atp-internal-gateway"
 # Security profile: default or disable-security
-SPRING_PROFILES: "default"
+ACTIVE_PROFILES_SPRING: "default"
 # Url of catalogue service
 CATALOGUE_URL: "http://atp-catalogue-service-address"
 # CPU core limit

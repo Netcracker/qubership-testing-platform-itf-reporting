@@ -16,7 +16,7 @@
 ## Minimal parameters set
 
 ```properties
--DSPRING_PROFILES=default
+-DACTIVE_PROFILES_SPRING=default
 -DKEYCLOAK_AUTH_URL=
 -DKEYCLOAK_ENABLED=
 -DKEYCLOAK_REALM=
@@ -58,7 +58,7 @@
 | `SERVICE_REGISTRY_URL`                   | No        | http://atp-registry-service:8761/eureka                                                                        | Eureka serviceUrl defaultZone value             |
 | `ATP_SERVICE_PUBLIC`                     | No        | true                                                                                                           | Enable or disable service public                |
 | `ATP_SERVICE_PATH`                       | No        | /api/atp-itf-reports/v1/**                                                                                     | Atp service path                                |
-| `SPRING_PROFILES`                        | Yes       | default                                                                                                        | Spring active profiles                          |
+| `ACTIVE_PROFILES_SPRING`                 | Yes       | default                                                                                                        | Spring active profiles                          |
 | `KEYCLOAK_ENABLED`                       | Yes       | false                                                                                                          | Enable or disable Keycloak integration          |
 | `KEYCLOAK_CLIENT_NAME`                   | Yes       | atp2                                                                                                           | Keycloak resource name                          |
 | `KEYCLOAK_SECRET`                        | Yes       | f3e17149-94d0-47ed-a5b7-744c332fdf66                                                                           | Keycloak secret value                           |
