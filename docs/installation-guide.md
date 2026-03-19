@@ -115,16 +115,16 @@
 | `CONSUL_CONFIG_DATA_KEY`                 | No        | data                                                                                                             | Consul config data-key value                    |
 | `CONSUL_CONFIG_FORMAT`                   | No        | properties                                                                                                       | Consul config format value                      |
 
-# Helm
+## Helm
 
-## Prerequisites
+### Prerequisites
 
 1. Install k8s locally
 2. Install Helm
 
-## How to deploy tool
+### How to deploy tool
 
-1. Build snapshot (artifacts and Docker image) of https://github.com/Netcracker/qubership-testing-platform-itf-reporting in GitHub
+1. Build snapshot (artifacts and Docker image) of [Itf-Reporting repository](https://github.com/Netcracker/qubership-testing-platform-itf-reporting) in GitHub
 2. Clone repository to a place, available from your openshift/kubernetes where you need to deploy the tool to
 3. Navigate to <repository-root>/deployments/charts/atp-itf-stubs folder
 4. Check/change configuration parameters in the ./values.yaml file according to your services installed
