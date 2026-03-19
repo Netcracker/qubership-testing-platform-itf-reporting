@@ -42,14 +42,13 @@
     <scm>
         <connection>scm:git:https//github.com/Netcracker/qubership-testing-platform-itf-reporting.git</connection>
         <developerConnection>scm:git:https://github.com/Netcracker/qubership-testing-platform-itf-reporting.git</developerConnection>
-        <url>scm:git:https://github.com/Netcracker/qubership-testing-platform-itf-reporting/tree/main</url>
+        <url>scm:git:https://github.com/Netcracker/qubership-testing-platform-itf-reporting.git</url>
       <tag>HEAD</tag>
   </scm>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-        <taRollout.skipNotify>true</taRollout.skipNotify>
     </properties>
 
     <profiles>
