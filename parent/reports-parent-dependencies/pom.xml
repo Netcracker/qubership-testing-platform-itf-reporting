@@ -35,6 +35,12 @@
                 <groupId>org.qubership.atp.auth</groupId>
                 <artifactId>atp-auth-impl</artifactId>
                 <version>${atp.auth.version}</version>
+                <exclusions>
+                    <exclusion>
+                        <groupId>org.apache.httpcomponents</groupId>
+                        <artifactId>httpclient</artifactId>
+                    </exclusion>
+                </exclusions>
             </dependency>
             <dependency>
                 <groupId>org.qubership.atp</groupId>
@@ -277,10 +283,15 @@
                 <artifactId>powermock-api-mockito</artifactId>
                 <version>1.6.5</version>
             </dependency>
-            <dependency>
+            <!-- <dependency>
                 <groupId>org.apache.httpcomponents</groupId>
                 <artifactId>httpclient</artifactId>
                 <version>4.5.5</version>
+            </dependency> -->
+            <dependency>
+                <groupId>org.apache.httpcomponents.client5</groupId>
+                <artifactId>httpclient5</artifactId>
+                <version>5.4.1</version>
             </dependency>
             <dependency>
                 <groupId>org.json</groupId>

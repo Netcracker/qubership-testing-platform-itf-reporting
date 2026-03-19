@@ -1,5 +1,5 @@
 /*
- *  Copyright 2024-2025 NetCracker Technology Corporation
+ *  Copyright 2024-2026 NetCracker Technology Corporation
  *
  *  Licensed under the Apache License, Version 2.0 (the "License");
  *  you may not use this file except in compliance with the License.
@@ -22,12 +22,25 @@ import java.util.List;
 
 import org.junit.Assert;
 import org.junit.Test;
+import org.qubership.automation.itf.report.model.ReportObject;
 
 import com.google.common.collect.Lists;
-import org.qubership.automation.itf.report.model.ReportObject;
 
 public class TreeNodeUtilsTest extends TreeNodeUtils {
 
+    private static final List<BigInteger> listIds = List.of(
+            new BigInteger("0"),
+            new BigInteger("60420003267"),
+            new BigInteger("60420003271"),
+            new BigInteger("60420003272"),
+            new BigInteger("60420003273"),
+            new BigInteger("60420003274"),
+            new BigInteger("60420003275"),
+            new BigInteger("62420003271"),
+            new BigInteger("62420003273"),
+            new BigInteger("62420003274"),
+            new BigInteger("62420003275")
+    );
 
     @Test
     public void getReportObjectTest() {
@@ -46,163 +59,127 @@ public class TreeNodeUtilsTest extends TreeNodeUtils {
     @Test
     public void cutExcessTest() {
         List<ReportObject> objects = Lists.newArrayList();
-        ReportObject reportObject0 = new ReportObject(new BigInteger("60420003267"), new BigInteger("0"),
-                "TcContext", "REST test [No Data Set]", "", 1, "PASSED", "01.069");
-        objects.add(reportObject0);
-        ReportObject reportObject1 = new ReportObject(new BigInteger("60420003271"), new BigInteger("60420003267"),
-                "SituationInstance", "send", "", 2, "PASSED", "01.069");
-        objects.add(reportObject1);
-        ReportObject reportObject2 = new ReportObject(new BigInteger("60420003272"), new BigInteger("60420003271"),
-                "InstanceContext", "send", "", 2, "PASSED", "01.069");
-        objects.add(reportObject2);
-        ReportObject reportObject3 = new ReportObject(new BigInteger("60420003273"), new BigInteger("60420003271"),
-                "StepInstance", "send", "", 2, "PASSED", "01.069");
-        objects.add(reportObject3);
-        ReportObject reportObject4 = new ReportObject(new BigInteger("60420003274"), new BigInteger("60420003273"),
-                "InstanceContext", "send", "", 2, "PASSED", "01.069");
-        objects.add(reportObject4);
-        ReportObject reportObject5 = new ReportObject(new BigInteger("60420003275"), new BigInteger("60420003274"),
-                "SpContext", "send", "", 2, "PASSED", "01.069");
-        objects.add(reportObject5);
-        ReportObject reportObject6 = new ReportObject(new BigInteger("1133"), new BigInteger("60420003275"),
-                "incoming message", "send", "", 2, "PASSED", "01.069");
-        objects.add(reportObject6);
-        ReportObject reportObject7 = new ReportObject(new BigInteger("1134"), new BigInteger("60420003275"),
-                "outgoing message", "send", "", 2, "PASSED", "01.069");
-        objects.add(reportObject7);
-        objects = cutExcess(objects, TreeNodeTypes.SITUATION_INSTANCE.toString(), TreeNodeTypes.STEP_INSTANCE.toString());
+        objects.add(new ReportObject(listIds.get(1), listIds.get(0),
+                "TcContext", "REST test [No Data Set]", "", 1, "PASSED", "01.069"));
+        objects.add(new ReportObject(listIds.get(2), listIds.get(1),
+                "SituationInstance", "send", "", 2, "PASSED", "01.069"));
+        objects.add(new ReportObject(listIds.get(3), listIds.get(2),
+                "InstanceContext", "send", "", 2, "PASSED", "01.069"));
+        objects.add(new ReportObject(listIds.get(4), listIds.get(2),
+                "StepInstance", "send", "", 2, "PASSED", "01.069"));
+        objects.add(new ReportObject(listIds.get(5), listIds.get(4),
+                "InstanceContext", "send", "", 2, "PASSED", "01.069"));
+        objects.add(new ReportObject(listIds.get(6), listIds.get(5),
+                "SpContext", "send", "", 2, "PASSED", "01.069"));
+        objects.add(new ReportObject(new BigInteger("1133"), listIds.get(6),
+                "incoming message", "send", "", 2, "PASSED", "01.069"));
+        objects.add(new ReportObject(new BigInteger("1134"), listIds.get(6),
+                "outgoing message", "send", "", 2, "PASSED", "01.069"));
+
+        objects = cutExcess(objects,
+                TreeNodeTypes.SITUATION_INSTANCE.toString(),
+                TreeNodeTypes.STEP_INSTANCE.toString());
         Assert.assertEquals(2, objects.size());
     }
 
     @Test
     public void setCorrectMethod() {
         List<ReportObject> objects = Lists.newArrayList();
-        ReportObject reportObject0 = new ReportObject(new BigInteger("60420003267"), new BigInteger("0"),
-                "TcContext", "REST test [No Data Set]", "", 1, "PASSED", "01.069");
-        objects.add(reportObject0);
-        ReportObject reportObject1 = new ReportObject(new BigInteger("60420003271"), new BigInteger("60420003267"),
+        objects.add(new ReportObject(listIds.get(1), listIds.get(0),
+                "TcContext", "REST test [No Data Set]", "", 1, "PASSED", "01.069"));
+        ReportObject reportObject1 = new ReportObject(listIds.get(2), listIds.get(1),
                 "SituationInstance", "send", "", 2, "PASSED", "01.069");
         objects.add(reportObject1);
-        ReportObject reportObject2 = new ReportObject(new BigInteger("60420003272"), new BigInteger("60420003271"),
+        ReportObject reportObject2 = new ReportObject(listIds.get(3), listIds.get(2),
                 "InstanceContext", "send", "", 2, "PASSED", "01.069");
         objects.add(reportObject2);
         setCorrectParent(objects, reportObject1);
-        Assert.assertEquals(new BigInteger("60420003267"), reportObject2.getParent());
+        Assert.assertEquals(listIds.get(1), reportObject2.getParent());
     }
 
     @Test
     public void moveToSecondIfHasStatusTest() {
         List<ReportObject> objects = Lists.newArrayList();
         List<ReportObject> savedObjects = Lists.newArrayList();
-        ReportObject reportObject0 = new ReportObject(new BigInteger("60420003267"), new BigInteger("0"),
-                "TcContext", "REST test [No Data Set]", "", 1, "PASSED", "01.069");
-        objects.add(reportObject0);
-        ReportObject reportObject1 = new ReportObject(new BigInteger("60420003271"), new BigInteger("60420003267"),
-                "SituationInstance", "send", "", 2, "PASSED", "01.069");
-        objects.add(reportObject1);
-        ReportObject reportObject2 = new ReportObject(new BigInteger("60420003272"), new BigInteger("60420003271"),
-                "InstanceContext", "send", "", 2, "PASSED", "01.069");
-        objects.add(reportObject2);
-        ReportObject reportObject3 = new ReportObject(new BigInteger("60420003273"), new BigInteger("60420003272"),
-                "StepInstance", "send", "", 2, "PASSED", "01.069");
-        objects.add(reportObject3);
+        objects.add(new ReportObject(listIds.get(1), listIds.get(0),
+                "TcContext", "REST test [No Data Set]", "", 1, "PASSED", "01.069"));
+        objects.add(new ReportObject(listIds.get(2), listIds.get(1),
+                "SituationInstance", "send", "", 2, "PASSED", "01.069"));
+        objects.add(new ReportObject(listIds.get(3), listIds.get(2),
+                "InstanceContext", "send", "", 2, "PASSED", "01.069"));
+        objects.add(new ReportObject(listIds.get(4), listIds.get(3),
+                "StepInstance", "send", "", 2, "PASSED", "01.069"));
         moveToSavedCollectionIfHasType(objects, savedObjects, Lists.newArrayList(TreeNodeTypes.STEP_INSTANCE.toString()));
         Assert.assertEquals(1, savedObjects.size());
-//        Assert.assertEquals(1, savedObjects.stream().findFirst().get().getParent());
     }
 
     @Test
     public void createTreeNodesByReportTest() {
         List<ReportObject> objects = Lists.newArrayList();
-        ReportObject reportObject0 = new ReportObject(new BigInteger("60420003267"), new BigInteger("0"),
-                "TcContext", "REST test [No Data Set]", "", 1, "PASSED", "01.069");
-        objects.add(reportObject0);
-        ReportObject reportObject1 = new ReportObject(new BigInteger("60420003271"), new BigInteger("60420003267"),
-                "SituationInstance", "send1", "", 2, "PASSED", "01.069");
-        objects.add(reportObject1);
-        ReportObject reportObject2 = new ReportObject(new BigInteger("60420003272"), new BigInteger("60420003271"),
-                "InstanceContext", "send2", "", 3, "PASSED", "01.069");
-        objects.add(reportObject2);
-        ReportObject reportObject3 = new ReportObject(new BigInteger("60420003273"), new BigInteger("60420003271"),
-                "StepInstance", "send3", "", 3, "PASSED", "01.069");
-        objects.add(reportObject3);
-        ReportObject reportObject4 = new ReportObject(new BigInteger("60420003274"), new BigInteger("60420003273"),
-                "InstanceContext", "send4", "", 4, "PASSED", "01.069");
-        objects.add(reportObject4);
-        ReportObject reportObject5 = new ReportObject(new BigInteger("60420003275"), new BigInteger("60420003274"),
-                "SpContext", "send5", "", 5, "PASSED", "01.069");
-        objects.add(reportObject5);
-        ReportObject reportObject6 = new ReportObject(new BigInteger("1133"), new BigInteger("60420003275"),
-                "incoming message", "send6", "", 6, "PASSED", "01.069");
-        objects.add(reportObject6);
-        ReportObject reportObject7 = new ReportObject(new BigInteger("1134"), new BigInteger("60420003275"),
-                "outgoing message", "send7", "", 6, "PASSED", "01.069");
-        objects.add(reportObject7);
+        objects.add(new ReportObject(listIds.get(1), listIds.get(0),
+                "TcContext", "REST test [No Data Set]", "", 1, "PASSED", "01.069"));
+        objects.add(new ReportObject(listIds.get(2), listIds.get(1),
+                "SituationInstance", "send1", "", 2, "PASSED", "01.069"));
+        objects.add(new ReportObject(listIds.get(3), listIds.get(2),
+                "InstanceContext", "send2", "", 3, "PASSED", "01.069"));
+        objects.add(new ReportObject(listIds.get(4), listIds.get(2),
+                "StepInstance", "send3", "", 3, "PASSED", "01.069"));
+        objects.add(new ReportObject(listIds.get(5), listIds.get(4),
+                "InstanceContext", "send4", "", 4, "PASSED", "01.069"));
+        objects.add(new ReportObject(listIds.get(6), listIds.get(5),
+                "SpContext", "send5", "", 5, "PASSED", "01.069"));
+        objects.add(new ReportObject(new BigInteger("1133"), listIds.get(6),
+                "incoming message", "send6", "", 6, "PASSED", "01.069"));
+        objects.add(new ReportObject(new BigInteger("1134"), listIds.get(6),
+                "outgoing message", "send7", "", 6, "PASSED", "01.069"));
         List<TreeNode> treeNodesByReport = TreeNodeUtils.createTreeNodesByReport(objects,
-                TreeNodeTypes.SITUATION_INSTANCE.toString(), TreeNodeTypes.STEP_INSTANCE.toString(), TreeNodeTypes.OUTGOING_MESSAGE.toString());
+                TreeNodeTypes.SITUATION_INSTANCE.toString(),
+                TreeNodeTypes.STEP_INSTANCE.toString(),
+                TreeNodeTypes.OUTGOING_MESSAGE.toString());
 
         Assert.assertEquals(1, treeNodesByReport.size());
-//        Assert.assertTrue(Objects.nonNull(treeNodesByReport.stream().findFirst().get().getNodes().stream().findFirst().get().getOutgoingMessage()));
-
-
     }
-
 
     @Test
     public void createTreeNodesByReportTest2() {
         List<ReportObject> objects = Lists.newArrayList();
-        ReportObject reportObject0 = new ReportObject(new BigInteger("60420003267"), new BigInteger("0"),
-                "TcContext", "REST test [No Data Set]", "", 1, "PASSED", "01.069");
-        objects.add(reportObject0);
-        ReportObject reportObject1 = new ReportObject(new BigInteger("60420003271"), new BigInteger("60420003267"),
-                "SituationInstance", "send1", "", 2, "PASSED", "01.069");
-        objects.add(reportObject1);
-        ReportObject reportObject2 = new ReportObject(new BigInteger("60420003272"), new BigInteger("60420003271"),
-                "InstanceContext", "send2", "", 3, "PASSED", "01.069");
-        objects.add(reportObject2);
-        ReportObject reportObject3 = new ReportObject(new BigInteger("60420003273"), new BigInteger("60420003271"),
-                "StepInstance", "send3", "", 3, "PASSED", "01.069");
-        objects.add(reportObject3);
-        ReportObject reportObject4 = new ReportObject(new BigInteger("60420003274"), new BigInteger("60420003273"),
-                "InstanceContext", "send4", "", 4, "PASSED", "01.069");
-        objects.add(reportObject4);
-        ReportObject reportObject5 = new ReportObject(new BigInteger("60420003275"), new BigInteger("60420003274"),
-                "SpContext", "send5", "", 5, "PASSED", "01.069");
-        objects.add(reportObject5);
-        ReportObject reportObject6 = new ReportObject(new BigInteger("1133"), new BigInteger("60420003275"),
-                "incoming message", "send6", "", 6, "PASSED", "01.069");
-        objects.add(reportObject6);
-        ReportObject reportObject7 = new ReportObject(new BigInteger("1134"), new BigInteger("60420003275"),
-                "outgoing message", "send7", "", 6, "PASSED", "01.069");
-        objects.add(reportObject7);
-        ReportObject reportObject8 = new ReportObject(new BigInteger("62420003271"), new BigInteger("60420003267"),
-                "SituationInstance", "send1", "", 2, "PASSED", "01.069");
-        objects.add(reportObject8);
-        ReportObject reportObject9 = new ReportObject(new BigInteger("62420003272"), new BigInteger("62420003271"),
-                "InstanceContext", "send2", "", 3, "PASSED", "01.069");
-        objects.add(reportObject9);
-        ReportObject reportObject10 = new ReportObject(new BigInteger("62420003273"), new BigInteger("62420003271"),
-                "StepInstance", "send3", "", 3, "PASSED", "01.069");
-        objects.add(reportObject10);
-        ReportObject reportObject11 = new ReportObject(new BigInteger("62420003274"), new BigInteger("62420003273"),
-                "InstanceContext", "send4", "", 4, "PASSED", "01.069");
-        objects.add(reportObject11);
-        ReportObject reportObject12 = new ReportObject(new BigInteger("62420003275"), new BigInteger("62420003274"),
-                "SpContext", "send5", "", 5, "PASSED", "01.069");
-        objects.add(reportObject12);
-        ReportObject reportObject13 = new ReportObject(new BigInteger("51133"), new BigInteger("62420003275"),
-                "incoming message", "send6", "", 6, "PASSED", "01.069");
-        objects.add(reportObject13);
-        ReportObject reportObject14 = new ReportObject(new BigInteger("51134"), new BigInteger("62420003275"),
-                "outgoing message", "send7", "", 6, "PASSED", "01.069");
-        objects.add(reportObject14);
+        objects.add(new ReportObject(listIds.get(1), listIds.get(0),
+                "TcContext", "REST test [No Data Set]", "", 1, "PASSED", "01.069"));
+        objects.add(new ReportObject(listIds.get(2), listIds.get(1),
+                "SituationInstance", "send1", "", 2, "PASSED", "01.069"));
+        objects.add(new ReportObject(listIds.get(3), listIds.get(2),
+                "InstanceContext", "send2", "", 3, "PASSED", "01.069"));
+        objects.add(new ReportObject(listIds.get(4), listIds.get(2),
+                "StepInstance", "send3", "", 3, "PASSED", "01.069"));
+        objects.add(new ReportObject(listIds.get(5), listIds.get(4),
+                "InstanceContext", "send4", "", 4, "PASSED", "01.069"));
+        objects.add(new ReportObject(listIds.get(6), listIds.get(5),
+                "SpContext", "send5", "", 5, "PASSED", "01.069"));
+        objects.add(new ReportObject(new BigInteger("1133"), listIds.get(6),
+                "incoming message", "send6", "", 6, "PASSED", "01.069"));
+        objects.add(new ReportObject(new BigInteger("1134"), listIds.get(6),
+                "outgoing message", "send7", "", 6, "PASSED", "01.069"));
+        objects.add(new ReportObject(listIds.get(7), listIds.get(1),
+                "SituationInstance", "send1", "", 2, "PASSED", "01.069"));
+        objects.add(new ReportObject(new BigInteger("62420003272"), listIds.get(7),
+                "InstanceContext", "send2", "", 3, "PASSED", "01.069"));
+        objects.add(new ReportObject(listIds.get(8), listIds.get(7),
+                "StepInstance", "send3", "", 3, "PASSED", "01.069"));
+        objects.add(new ReportObject(listIds.get(9), listIds.get(8),
+                "InstanceContext", "send4", "", 4, "PASSED", "01.069"));
+        objects.add(new ReportObject(listIds.get(10), listIds.get(9),
+                "SpContext", "send5", "", 5, "PASSED", "01.069"));
+        objects.add(new ReportObject(new BigInteger("51133"), listIds.get(10),
+                "incoming message", "send6", "", 6, "PASSED", "01.069"));
+        objects.add(new ReportObject(new BigInteger("51134"), listIds.get(10),
+                "outgoing message", "send7", "", 6, "PASSED", "01.069"));
         List<TreeNode> treeNodesByReport = TreeNodeUtils.createTreeNodesByReport(objects,
-                TreeNodeTypes.SITUATION_INSTANCE.toString(), TreeNodeTypes.STEP_INSTANCE.toString(), TreeNodeTypes.OUTGOING_MESSAGE.toString(), TreeNodeTypes.INCOMING_MESSAGE.toString());
+                TreeNodeTypes.SITUATION_INSTANCE.toString(),
+                TreeNodeTypes.STEP_INSTANCE.toString(),
+                TreeNodeTypes.OUTGOING_MESSAGE.toString(),
+                TreeNodeTypes.INCOMING_MESSAGE.toString());
 
         Assert.assertEquals(2, treeNodesByReport.size());
-//        Assert.assertTrue(Objects.nonNull(treeNodesByReport.stream().findFirst().get().getNodes().stream().findFirst().get().getOutgoingMessage()));
-
-
     }
 
 }
