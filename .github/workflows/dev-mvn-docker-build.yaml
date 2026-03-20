@@ -138,7 +138,7 @@ jobs:
   run-tests:
     needs: [ build-and-push ]
     if: |
-      github.event_name == "workflow_dispatch" ||
+      github.event_name == 'workflow_dispatch' ||
       (needs.build-and-push.result == 'success' &&
       (
         github.event_name == 'pull_request' ||
