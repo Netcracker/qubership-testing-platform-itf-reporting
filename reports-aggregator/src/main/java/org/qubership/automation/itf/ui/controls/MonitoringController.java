@@ -1,5 +1,5 @@
 /*
- *  Copyright 2024-2025 NetCracker Technology Corporation
+ *  Copyright 2024-2026 NetCracker Technology Corporation
  *
  *  Licensed under the Apache License, Version 2.0 (the "License");
  *  you may not use this file except in compliance with the License.
@@ -31,8 +31,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.UUID;
-
-import jakarta.annotation.Nonnull;
 
 import org.apache.commons.lang3.StringEscapeUtils;
 import org.apache.commons.lang3.StringUtils;
@@ -69,9 +67,9 @@ import org.springframework.data.domain.Page;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -81,6 +79,7 @@ import com.google.common.cache.CacheLoader;
 import com.google.common.cache.LoadingCache;
 import com.google.common.collect.Maps;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+import jakarta.annotation.Nonnull;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
@@ -105,7 +104,7 @@ public class MonitoringController {
 
     private Environment env;
     private final LoadingCache<String, String> urls = CacheBuilder.newBuilder()
-            .build(new CacheLoader<String, String>() {
+            .build(new CacheLoader<>() {
                 @Override
                 public String load(@Nonnull String key) {
                     return env.getProperty(key);
@@ -168,7 +167,7 @@ public class MonitoringController {
      */
     @Transactional(readOnly = true)
     @PreAuthorize("@entityAccess.checkAccess(#projectUuid, 'READ')")
-    @RequestMapping(value = "/monitoring/all", method = RequestMethod.GET)
+    @GetMapping("/monitoring/all")
     @AuditAction(auditAction = "Get 1st page of Monitoring data (page size {{#pageSize}}) "
             + "in the project {{#projectId}}/{{#projectUuid}}")
     public UIGetReportList getPage(@RequestParam BigInteger projectId,
@@ -187,7 +186,7 @@ public class MonitoringController {
     @SuppressWarnings("CPD-START")
     @Transactional(readOnly = true)
     @PreAuthorize("@entityAccess.checkAccess(#projectUuid, 'READ')")
-    @RequestMapping(value = "/monitoring/page", method = RequestMethod.GET)
+    @GetMapping("/monitoring/page")
     @AuditAction(auditAction = "Get #{{#page}} page of Monitoring data (page size {{#pageSize}}) "
             + "in the project {{#projectId}}/{{#projectUuid}}."
             + " Search conditions: name {{#name}}, initiator {{#initiator}}, status {{#status}}, "
@@ -242,7 +241,7 @@ public class MonitoringController {
      */
     @Transactional
     @PreAuthorize("@entityAccess.checkAccess(#projectUuid, 'READ')")
-    @RequestMapping(value = "/monitoring/simpleSearch", method = RequestMethod.GET)
+    @GetMapping("/monitoring/simpleSearch")
     @AuditAction(auditAction = "Get simple Monitoring search results, parameters: initiator {{#initiator}}, "
             + "status {{#status}}, environment {{#environment}}, minStartDate {{#minStartDate}}, "
             + "maxStartDate {{#maxStartDate}} in the project {{#projectUuid}}")
@@ -271,7 +270,7 @@ public class MonitoringController {
      */
     @Transactional
     @PreAuthorize("@entityAccess.checkAccess(#projectUuid, 'EXECUTE')")
-    @RequestMapping(value = "/monitoring/deleteContextsByFilter", method = RequestMethod.GET)
+    @GetMapping("/monitoring/deleteContextsByFilter")
     @AuditAction(auditAction = "Delete Monitoring data by conditions: name {{#name}}, initiator {{#initiator}}, "
             + "status {{#status}}, environment {{#environment}}, startDate {{#startDate}}, "
             + "startDateCondition {{#startDateCondition}}, finishDate {{#finishDate}}, "
@@ -322,7 +321,7 @@ public class MonitoringController {
      */
     @Transactional(readOnly = true)
     @PreAuthorize("@entityAccess.checkAccess(#projectUuid, 'READ')")
-    @RequestMapping(value = "/monitoring/get", method = RequestMethod.GET)
+    @GetMapping("/monitoring/get")
     @AuditAction(auditAction = "Get Tc-context by id {{#id}} in the project {{#projectId}}/{{#projectUuid}}")
     public @ResponseBody UIReportItem getItem(@RequestParam String id,
                          @RequestParam(value = "projectUuid") UUID projectUuid,
@@ -359,7 +358,7 @@ public class MonitoringController {
      */
     @Transactional(readOnly = true)
     @PreAuthorize("@entityAccess.checkAccess(#projectUuid, 'READ')")
-    @RequestMapping(value = "/monitoring/getContextVariables", method = RequestMethod.GET)
+    @GetMapping("/monitoring/getContextVariables")
     @AuditAction(auditAction = "Get Context variables of tc-context id {{#id}} in the project {{#projectUuid}}")
     public UIReportItem getContextVariables(@RequestParam(defaultValue = "0") String id,
                                             @RequestParam(value = "projectUuid", required = false) UUID projectUuid,
@@ -379,7 +378,7 @@ public class MonitoringController {
      */
     @Transactional(readOnly = true)
     @PreAuthorize("@entityAccess.checkAccess(#projectUuid, 'READ')")
-    @RequestMapping(value = "/monitoring/getContextErrors", method = RequestMethod.GET)
+    @GetMapping("/monitoring/getContextErrors")
     @AuditAction(auditAction = "Get Context errors of tc-context id {{#id}} in the project {{#projectUuid}}")
     public UIContextErrors getContextErrors(@RequestParam(defaultValue = "0") String id,
                                             @RequestParam(value = "projectUuid", required = false) UUID projectUuid,
@@ -420,7 +419,7 @@ public class MonitoringController {
      */
     @Transactional
     @PreAuthorize("@entityAccess.checkAccess(#projectUuid, 'READ')")
-    @RequestMapping(value = "/monitoring/getmessagetree", method = RequestMethod.GET)
+    @GetMapping("/monitoring/getmessagetree")
     @AuditAction(auditAction = "Get Messages Tree of tc-context id {{#id}} in the project {{#projectUuid}}")
     public List<TreeNode> getMessagesTree(@RequestParam(defaultValue = "0") String id,
                                           @RequestParam(value = "projectUuid", required = false) UUID projectUuid,
@@ -455,7 +454,7 @@ public class MonitoringController {
      */
     @Transactional(readOnly = true)
     @PreAuthorize("@entityAccess.checkAccess(#projectUuid, 'READ')")
-    @RequestMapping(value = "/monitoring/getmessageinfo", method = RequestMethod.GET, produces = "application/json")
+    @GetMapping(value = "/monitoring/getmessageinfo", produces = "application/json")
     @AuditAction(auditAction = "Get Messages Info of tc-context id {{#id}} in the project {{#projectUuid}}")
     public @ResponseBody Map<String, Object> getMessageInfo(@RequestParam String id,
                                        @RequestParam(value = "projectUuid", required = false) UUID projectUuid,
@@ -528,7 +527,7 @@ public class MonitoringController {
      */
     @Transactional
     @PreAuthorize("@entityAccess.checkAccess(#projectUuid, 'EXECUTE')")
-    @RequestMapping(value = "/monitoring/deleteSelectedContexts", method = RequestMethod.DELETE)
+    @DeleteMapping("/monitoring/deleteSelectedContexts")
     @AuditAction(auditAction = "Delete selected contexts from project {{#projectUuid}}")
     public void delete(@RequestBody UIIds uiDeleteObjectReq,
                        @RequestParam(value = "projectUuid", required = false) UUID projectUuid) {
@@ -548,7 +547,7 @@ public class MonitoringController {
     //noinspection Duplicates
     @Transactional(readOnly = true)
     @PreAuthorize("@entityAccess.checkAccess(#projectUuid, 'READ')")
-    @RequestMapping(value = "/monitoring/report", method = RequestMethod.GET)
+    @GetMapping("/monitoring/report")
     @AuditAction(auditAction = "Get Monitoring report with parameters: name {{#name}}, initiator {{#initiator}}, "
             + "status {{#status}}, environment {{#environment}}, startDate {{#startDate}}, "
             + "startDateCondition {{#startDateCondition}}, finishDate {{#finishDate}}, "

@@ -1,5 +1,5 @@
 /*
- *  Copyright 2024-2025 NetCracker Technology Corporation
+ *  Copyright 2024-2026 NetCracker Technology Corporation
  *
  *  Licensed under the Apache License, Version 2.0 (the "License");
  *  you may not use this file except in compliance with the License.
@@ -21,7 +21,6 @@ import java.time.LocalDateTime;
 
 import org.qubership.atp.multitenancy.core.context.TenantContext;
 import org.qubership.automation.itf.core.hibernate.spring.managers.reports.TcContextObjectManager;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
@@ -36,9 +35,8 @@ public class JobRunner {
     private static final String UTC_TIMEZONE = "UTC";
     @Value("${atp.multi-tenancy.enabled}")
     private Boolean multiTenancyEnabled;
-    private TcContextObjectManager tcContextObjectManager;
+    private final TcContextObjectManager tcContextObjectManager;
 
-    @Autowired
     public JobRunner(TcContextObjectManager tcContextObjectManager) {
         this.tcContextObjectManager = tcContextObjectManager;
     }

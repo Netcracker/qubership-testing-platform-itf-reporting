@@ -1,5 +1,5 @@
 /*
- *  Copyright 2024-2025 NetCracker Technology Corporation
+ *  Copyright 2024-2026 NetCracker Technology Corporation
  *
  *  Licensed under the Apache License, Version 2.0 (the "License");
  *  you may not use this file except in compliance with the License.
@@ -23,8 +23,6 @@ import java.util.Iterator;
 import java.util.Map;
 import java.util.Objects;
 
-import jakarta.annotation.PostConstruct;
-
 import org.apache.commons.lang3.StringUtils;
 import org.qubership.automation.itf.core.model.jpa.context.InstanceContext;
 import org.qubership.automation.itf.core.model.jpa.context.SpContext;
@@ -37,7 +35,6 @@ import org.qubership.automation.itf.core.model.jpa.message.parser.MessageParamet
 import org.qubership.automation.itf.report.statement.StatementContext;
 import org.qubership.automation.itf.util.MdcHelper;
 import org.slf4j.MDC;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Component;
@@ -49,6 +46,7 @@ import com.google.gson.JsonNull;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonPrimitive;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+import jakarta.annotation.PostConstruct;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
@@ -70,7 +68,6 @@ public class ExecutionReportQueryExecutor extends AbstractQueryExecutor implemen
      * @param jdbcTemplate - Jdbc Template
      * @param mdcHelper - Mdc Helper
      */
-    @Autowired
     public ExecutionReportQueryExecutor(final JdbcTemplate jdbcTemplate, final MdcHelper mdcHelper) {
         this.mdcHelper = mdcHelper;
         setJdbcTemplate(jdbcTemplate);

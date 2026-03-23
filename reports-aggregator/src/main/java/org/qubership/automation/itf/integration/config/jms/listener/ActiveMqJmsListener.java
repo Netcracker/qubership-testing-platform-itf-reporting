@@ -1,5 +1,5 @@
 /*
- *  Copyright 2024-2025 NetCracker Technology Corporation
+ *  Copyright 2024-2026 NetCracker Technology Corporation
  *
  *  Licensed under the Apache License, Version 2.0 (the "License");
  *  you may not use this file except in compliance with the License.
@@ -19,12 +19,6 @@ package org.qubership.automation.itf.integration.config.jms.listener;
 
 import java.util.Objects;
 
-import jakarta.annotation.Nonnull;
-import javax.jms.JMSException;
-import javax.jms.Message;
-import javax.jms.MessageListener;
-import javax.jms.TextMessage;
-
 import org.qubership.atp.integration.configuration.mdc.MdcUtils;
 import org.qubership.atp.multitenancy.core.header.CustomHeader;
 import org.qubership.automation.itf.core.util.mdc.MdcField;
@@ -38,6 +32,11 @@ import org.springframework.stereotype.Component;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.google.gson.JsonPrimitive;
+import jakarta.annotation.Nonnull;
+import jakarta.jms.JMSException;
+import jakarta.jms.Message;
+import jakarta.jms.MessageListener;
+import jakarta.jms.TextMessage;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 

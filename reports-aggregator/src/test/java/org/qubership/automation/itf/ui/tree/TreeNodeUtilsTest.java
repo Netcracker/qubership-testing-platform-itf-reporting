@@ -17,11 +17,13 @@
 
 package org.qubership.automation.itf.ui.tree;
 
+import static org.junit.jupiter.api.Assertions.assertThrows;
+
 import java.math.BigInteger;
 import java.util.List;
 
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 import org.qubership.automation.itf.report.model.ReportObject;
 
 import com.google.common.collect.Lists;
@@ -47,13 +49,15 @@ public class TreeNodeUtilsTest extends TreeNodeUtils {
         Object[] objects = new Object[10];
         objects[6] = "TEST";
         ReportObject reportObject = getReportObject(objects);
-        Assert.assertEquals("TEST", reportObject.getStatus());
+        Assertions.assertEquals("TEST", reportObject.getStatus());
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void getReportObjectExceptionTest() {
-        Object[] objects = new Object[7];
-        getReportObject(objects);
+        assertThrows(IllegalArgumentException.class, () -> {
+            Object[] objects = new Object[7];
+            getReportObject(objects);
+        });
     }
 
     @Test
@@ -79,7 +83,7 @@ public class TreeNodeUtilsTest extends TreeNodeUtils {
         objects = cutExcess(objects,
                 TreeNodeTypes.SITUATION_INSTANCE.toString(),
                 TreeNodeTypes.STEP_INSTANCE.toString());
-        Assert.assertEquals(2, objects.size());
+        Assertions.assertEquals(2, objects.size());
     }
 
     @Test
@@ -94,7 +98,7 @@ public class TreeNodeUtilsTest extends TreeNodeUtils {
                 "InstanceContext", "send", "", 2, "PASSED", "01.069");
         objects.add(reportObject2);
         setCorrectParent(objects, reportObject1);
-        Assert.assertEquals(listIds.get(1), reportObject2.getParent());
+        Assertions.assertEquals(listIds.get(1), reportObject2.getParent());
     }
 
     @Test
@@ -110,7 +114,7 @@ public class TreeNodeUtilsTest extends TreeNodeUtils {
         objects.add(new ReportObject(listIds.get(4), listIds.get(3),
                 "StepInstance", "send", "", 2, "PASSED", "01.069"));
         moveToSavedCollectionIfHasType(objects, savedObjects, Lists.newArrayList(TreeNodeTypes.STEP_INSTANCE.toString()));
-        Assert.assertEquals(1, savedObjects.size());
+        Assertions.assertEquals(1, savedObjects.size());
     }
 
     @Test
@@ -137,7 +141,7 @@ public class TreeNodeUtilsTest extends TreeNodeUtils {
                 TreeNodeTypes.STEP_INSTANCE.toString(),
                 TreeNodeTypes.OUTGOING_MESSAGE.toString());
 
-        Assert.assertEquals(1, treeNodesByReport.size());
+        Assertions.assertEquals(1, treeNodesByReport.size());
     }
 
     @Test
@@ -179,7 +183,7 @@ public class TreeNodeUtilsTest extends TreeNodeUtils {
                 TreeNodeTypes.OUTGOING_MESSAGE.toString(),
                 TreeNodeTypes.INCOMING_MESSAGE.toString());
 
-        Assert.assertEquals(2, treeNodesByReport.size());
+        Assertions.assertEquals(2, treeNodesByReport.size());
     }
 
 }

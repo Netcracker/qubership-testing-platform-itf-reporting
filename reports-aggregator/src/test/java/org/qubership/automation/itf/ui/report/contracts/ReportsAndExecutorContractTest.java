@@ -1,5 +1,5 @@
 /*
- *  Copyright 2024-2025 NetCracker Technology Corporation
+ *  Copyright 2024-2026 NetCracker Technology Corporation
  *
  *  Licensed under the Apache License, Version 2.0 (the "License");
  *  you may not use this file except in compliance with the License.
@@ -29,17 +29,19 @@ import java.util.Set;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.TestTemplate;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.qubership.automation.itf.ui.controls.ContextController;
+import org.qubership.automation.itf.ui.services.ContextService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.http.HttpMessageConvertersAutoConfiguration;
 import org.springframework.boot.autoconfigure.jackson.JacksonAutoConfiguration;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
-import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.TestPropertySource;
+import org.springframework.test.context.bean.override.mockito.MockitoBean;
+import org.springframework.test.context.junit.jupiter.SpringJUnitConfig;
 import org.springframework.test.web.servlet.MockMvc;
 
 import au.com.dius.pact.provider.junit5.PactVerificationContext;
@@ -48,15 +50,13 @@ import au.com.dius.pact.provider.junitsupport.Provider;
 import au.com.dius.pact.provider.junitsupport.State;
 import au.com.dius.pact.provider.junitsupport.loader.PactUrl;
 import au.com.dius.pact.provider.spring.junit5.MockMvcTestTarget;
-import org.qubership.automation.itf.ui.controls.ContextController;
-import org.qubership.automation.itf.ui.services.ContextService;
 import lombok.extern.slf4j.Slf4j;
 
 @Provider("atp-itf-reports")
 @PactUrl(urls = {"classpath:pacts/atp-itf-executor-atp-itf-reports.json"})
 @AutoConfigureMockMvc(addFilters = false)
 @WebMvcTest(controllers = {ContextController.class})
-@ContextConfiguration(classes = {ReportsAndExecutorContractTest.TestApp.class})
+@SpringJUnitConfig(classes = {ReportsAndExecutorContractTest.TestApp.class})
 @EnableAutoConfiguration
 @Import({JacksonAutoConfiguration.class, HttpMessageConvertersAutoConfiguration.class,
         ContextController.class})
@@ -71,7 +71,7 @@ public class ReportsAndExecutorContractTest {
     @Autowired
     private MockMvc mockMvc;
 
-    @MockBean
+    @MockitoBean
     private ContextService contextService;
 
     public void beforeAll() {
