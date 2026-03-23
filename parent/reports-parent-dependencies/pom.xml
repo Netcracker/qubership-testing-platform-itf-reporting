@@ -3,7 +3,7 @@
     <parent>
         <groupId>org.qubership.mockingbird</groupId>
         <artifactId>reports</artifactId>
-        <version>4.4.120-SNAPSHOT</version>
+        <version>5.0.0-SNAPSHOT</version>
         <relativePath>../../pom.xml</relativePath>
     </parent>
     <artifactId>reports-parent-dependencies</artifactId>
@@ -22,11 +22,11 @@
         <tomcat-embed.version>10.1.50</tomcat-embed.version>
         <netty.version>4.1.125.Final</netty.version>
 
-        <atp.itf.core.version>5.0.1-SNAPSHOT</atp.itf.core.version>
-        <atp.auth.version>2.0.2-SNAPSHOT</atp.auth.version>
-        <atp.multitenancy.version>1.0.0-SNAPSHOT</atp.multitenancy.version>
-        <atp.common.version>1.0.0-SNAPSHOT</atp.common.version>
-        <atp.integration.version>1.0.0-SNAPSHOT</atp.integration.version>
+        <atp.itf.core.version>5.0.3-SNAPSHOT</atp.itf.core.version>
+        <atp.auth.version>2.0.3-SNAPSHOT</atp.auth.version>
+        <atp.multitenancy.version>1.0.1-SNAPSHOT</atp.multitenancy.version>
+        <atp.common.version>1.0.1-SNAPSHOT</atp.common.version>
+        <atp.integration.version>1.0.1-SNAPSHOT</atp.integration.version>
     </properties>
 
     <dependencyManagement>
