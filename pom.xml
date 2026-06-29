@@ -5,7 +5,6 @@
     <artifactId>reports</artifactId>
     <version>5.0.2-SNAPSHOT</version>
     <packaging>pom</packaging>
-
     <modules>
         <!--modules for building process-->
         <module>parent/reports-parent-dependencies</module>
