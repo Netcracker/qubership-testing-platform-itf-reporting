@@ -19,7 +19,6 @@
         <!--pom for compile ready project and some local resources-->
         <module>reports-common</module>
     </modules>
-
     <name>${project.groupId}:${project.artifactId}</name>
     <description>Qubership Testing Platform ITF Reporting Service</description>
     <url>https://github.com/Netcracker/qubership-testing-platform-itf-reporting</url>
