@@ -47,6 +47,8 @@ public class TreeNodeUtilsTest extends TreeNodeUtils {
     @Test
     public void getReportObjectTest() {
         Object[] objects = new Object[10];
+        objects[0] = Long.valueOf(0);
+        objects[1] =  Long.valueOf(1);
         objects[6] = "TEST";
         ReportObject reportObject = getReportObject(objects);
         Assertions.assertEquals("TEST", reportObject.getStatus());
