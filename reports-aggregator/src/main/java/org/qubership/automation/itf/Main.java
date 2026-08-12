@@ -17,12 +17,13 @@
 
 package org.qubership.automation.itf;
 
-import org.javers.spring.boot.sql.JaversSqlAutoConfiguration;
 import org.qubership.atp.auth.springbootstarter.security.oauth2.client.config.annotation.EnableM2MRestTemplate;
 import org.qubership.atp.auth.springbootstarter.security.oauth2.client.config.annotation.EnableOauth2FeignClientInterceptor;
 import org.qubership.atp.common.lock.annotation.EnableAtpLockManager;
 import org.qubership.atp.common.probes.controllers.DeploymentController;
 import org.qubership.atp.multitenancy.hibernate.annotation.EnableMultiTenantDataSource;
+import org.qubership.automation.itf.core.util.feign.FeignService;
+import org.qubership.automation.itf.core.util.feign.http.HttpClientFactory;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
 import org.springframework.boot.autoconfigure.liquibase.LiquibaseAutoConfiguration;
@@ -40,22 +41,22 @@ import org.springframework.context.annotation.EnableAspectJAutoProxy;
 import org.springframework.context.annotation.FilterType;
 import org.springframework.context.annotation.Import;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
-import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 @SpringBootApplication(exclude = {
                 DataSourceAutoConfiguration.class,
                 HibernateJpaAutoConfiguration.class,
-                MongoAutoConfiguration.class,
-                LiquibaseAutoConfiguration.class,
-                JaversSqlAutoConfiguration.class
+                MongoAutoConfiguration.class
         })
 @ComponentScan(excludeFilters = {
         @ComponentScan.Filter(type = FilterType.REGEX,
                 pattern = "org.qubership.automation.itf.core.config.ExecutorHibernateConfiguration"),
         @ComponentScan.Filter(type = FilterType.REGEX,
                 pattern = "org.qubership.automation.itf.core.hibernate.spring.managers.executor"
-                        + ".(?!(UpgradeHistoryObjectManager)).*")
+                        + ".(?!(UpgradeHistoryObjectManager)).*"),
+        @ComponentScan.Filter(type= FilterType.ASSIGNABLE_TYPE, value=LiquibaseAutoConfiguration.class),
+        @ComponentScan.Filter(type= FilterType.ASSIGNABLE_TYPE, value=FeignService.class),
+        @ComponentScan.Filter(type= FilterType.ASSIGNABLE_TYPE, value=HttpClientFactory.class)
 })
 @EnableAspectJAutoProxy(proxyTargetClass = true)
 @EnableDiscoveryClient
@@ -70,7 +71,6 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 //@EnableConfigurationProperties
 @EnableM2MRestTemplate
 @EnableOauth2FeignClientInterceptor
-@EnableGlobalMethodSecurity(prePostEnabled = true)
 @EnableFeignClients(basePackages = {"org.qubership.atp.integration.configuration.feign"})
 @Import({
         WebMvcAutoConfiguration.class,

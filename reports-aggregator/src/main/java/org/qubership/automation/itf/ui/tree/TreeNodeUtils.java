@@ -22,7 +22,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-import javax.annotation.Nonnull;
+import jakarta.annotation.Nonnull;
 
 import org.qubership.automation.itf.report.model.ReportObject;
 
@@ -69,8 +69,8 @@ public class TreeNodeUtils {
         }
         //TODO It's hardcode. Need Use @SqlResultSetMapping in ReportObject
         ReportObject reportObject = new ReportObject();
-        reportObject.setId((BigInteger) object[0]);
-        reportObject.setParent((BigInteger) object[1]);
+        reportObject.setId(BigInteger.valueOf(((Long) object[0])));
+        reportObject.setParent(BigInteger.valueOf(((Long) object[1])));
         reportObject.setType((String) object[2]);
         reportObject.setDescription((String) object[3]);
         reportObject.setPath((String) object[4]);

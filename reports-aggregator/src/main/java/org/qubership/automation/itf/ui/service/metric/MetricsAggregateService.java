@@ -1,5 +1,5 @@
 /*
- *  Copyright 2024-2025 NetCracker Technology Corporation
+ *  Copyright 2024-2026 NetCracker Technology Corporation
  *
  *  Licensed under the Apache License, Version 2.0 (the "License");
  *  you may not use this file except in compliance with the License.
@@ -19,7 +19,6 @@ package org.qubership.automation.itf.ui.service.metric;
 
 import java.util.function.Supplier;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.event.ContextRefreshedEvent;
@@ -49,7 +48,6 @@ public class MetricsAggregateService {
      * @param meterRegistry - Meter Registry,
      * @param jmsListenerEndpointRegistry - Jms Listener Endpoint Registry.
      */
-    @Autowired
     public MetricsAggregateService(ApplicationContext applicationContext, MeterRegistry meterRegistry,
                                    JmsListenerEndpointRegistry jmsListenerEndpointRegistry) {
         this.applicationContext = applicationContext;

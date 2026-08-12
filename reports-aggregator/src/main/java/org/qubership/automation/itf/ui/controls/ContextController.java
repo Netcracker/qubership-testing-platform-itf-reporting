@@ -1,5 +1,5 @@
 /*
- *  Copyright 2024-2025 NetCracker Technology Corporation
+ *  Copyright 2024-2026 NetCracker Technology Corporation
  *
  *  Licensed under the Apache License, Version 2.0 (the "License");
  *  you may not use this file except in compliance with the License.
@@ -31,8 +31,7 @@ import org.qubership.automation.itf.core.util.mdc.MdcField;
 import org.qubership.automation.itf.ui.services.ContextService;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -53,7 +52,7 @@ public class ContextController {
      */
     @Transactional(readOnly = true)
     @PreAuthorize("@entityAccess.checkAccess(#projectUuid, 'READ')")
-    @RequestMapping(value = "/context/getProperties", method = RequestMethod.GET, produces = APPLICATION_JSON_VALUE)
+    @GetMapping(value = "/context/getProperties", produces = APPLICATION_JSON_VALUE)
     @AuditAction(auditAction = "Get Context Properties of tc-context id {{#contextId}} in the project {{#projectUuid}}")
     public List<Object[]> getContextProperties(
             @RequestParam(value = "contextId") String contextId,
@@ -72,7 +71,7 @@ public class ContextController {
      */
     @Transactional(readOnly = true)
     @PreAuthorize("@entityAccess.checkAccess(#projectUuid, 'READ')")
-    @RequestMapping(value = "/context/getContextVariables", method = RequestMethod.GET, produces = TEXT_PLAIN_VALUE)
+    @GetMapping(value = "/context/getContextVariables", produces = TEXT_PLAIN_VALUE)
     @AuditAction(auditAction = "Get Context Variables of tc-context id {{#contextId}} in the project {{#projectUuid}}")
     public String getContextVariables(
             @RequestParam(value = "contextId") String contextId,
@@ -91,7 +90,7 @@ public class ContextController {
      */
     @Transactional(readOnly = true)
     @PreAuthorize("@entityAccess.checkAccess(#projectUuid, \"READ\")")
-    @RequestMapping(value = "/context/getKeys", method = RequestMethod.GET, produces = APPLICATION_JSON_VALUE)
+    @GetMapping(value = "/context/getKeys", produces = APPLICATION_JSON_VALUE)
     @AuditAction(auditAction = "Get Context Keys of tc-context id {{#contextId}} in the project {{#projectUuid}}")
     public Set<String> getKeys(
             @RequestParam(value = "contextId") String contextId,
@@ -107,7 +106,7 @@ public class ContextController {
      * @return map of current partition numbers by tenant id.
      */
     @Transactional(readOnly = true)
-    @RequestMapping(value = "/partition/current", method = RequestMethod.GET)
+    @GetMapping("/partition/current")
     public Map<String, Integer> getCurrentPartitionNumbers() {
         return contextService.getCurrentPartitionNumbers();
     }

@@ -1,4 +1,4 @@
-FROM bellsoft/liberica-openjdk-alpine-musl:8u482
+FROM bellsoft/liberica-openjdk-alpine-musl:21.0.11
 
 LABEL maintainer="opensourcegroup@netcracker.com"
 LABEL atp.service="atp-itf-reporting"
@@ -26,6 +26,8 @@ RUN echo "https://dl-cdn.alpinelinux.org/alpine/v3.23/community/" >/etc/apk/repo
         libcrypto3=3.5.7-r0 \
         libexpat=2.8.2-r0 \
         libssl3=3.5.7-r0 \
+        musl=1.2.5-r23 \
+        musl-utils=1.2.5-r23 \
         net-tools=2.10-r3 \
         nss_wrapper=1.1.12-r1 \
         pcre2=10.47-r0 \

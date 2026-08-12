@@ -25,7 +25,7 @@ import java.time.LocalDateTime;
 import java.util.Collection;
 import java.util.Objects;
 
-import javax.annotation.PreDestroy;
+import jakarta.annotation.PreDestroy;
 
 import org.qubership.atp.common.lock.LockManager;
 import org.qubership.atp.multitenancy.core.context.TenantContext;
